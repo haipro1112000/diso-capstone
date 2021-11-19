@@ -1,0 +1,61 @@
+
+@import url(../css/fonts.css);
+html,
+body {
+    margin: 0%;
+    box-sizing: border-box;
+    height: 100%;
+    background: #f5f5f5;
+    font-size: 100%;
+}
+
+:root {
+    --text-gray: #3f4954;
+    /*theme font-family*/
+    --Abel: 'Abel', cursive;
+    --Anton: 'Anton', cursive;
+    --Josefin: 'Josefin', cursive;
+    --Lexend: 'Lexend', cursive;
+    --Livvic: 'Livvic', cursive;
+}
+.ui-w-80 {
+    width: 80px;
+    height: auto;
+}
+label.btn {
+    margin-bottom: 20px;
+}
+
+.btn-outline-primary {
+    border-color: #26B4FF;
+    background: transparent;
+    color: #26B4FF;
+    border-radius: 10px;
+    border: solid 1px;
+    border-radius: 10px;
+    padding: 6px 12px;
+    font-size: 1rem;
+    font-family: var(--Livvic);
+    cursor: pointer;
+    margin-bottom: 20px;   
+}
+.text-right.mt-3 {
+    margin-right: 20px;
+}
+
+.text-light {
+    color: #babbbc !important;
+}
+
+
+.row-bordered {
+    overflow: hidden;
+}
+
+.account-settings-fileinput {
+    position: absolute;
+    visibility: hidden;
+    width: 1px;
+    height: 1px;
+    opacity: 0;
+}

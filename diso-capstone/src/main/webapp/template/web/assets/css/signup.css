@@ -1,0 +1,143 @@
+@import url(../css/fonts.css);
+:root {
+    --text-gray: #3f4954;
+    /*theme font-family*/
+    --Abel: 'Abel', cursive;
+    --Anton: 'Anton', cursive;
+    --Josefin: 'Josefin', cursive;
+    --Lexend: 'Lexend', cursive;
+    --Livvic: 'Livvic', cursive;
+}
+
+.form-container {
+    background: #fff;
+    width: 300px;
+    height: 400px;
+    position: absolute;
+    text-align: center;
+    padding: 20px 0;
+    margin: auto;
+    box-shadow: 0 0 20px 0px rgba(0, 0, 0, 0.1);
+    overflow: hidden;
+    font-family: var(--Livvic);
+    border-radius: 10px;
+    box-shadow: 0 -4px 32px rgba(0, 0, 0, .2);
+    right: 0;
+    left: 0;
+    top: 0;
+    bottom: 0;
+    display: none;
+}
+
+.active {
+    display: block;
+}
+
+.form-container span {
+    font-weight: bold;
+    padding: 0 10px;
+    color: #555;
+    cursor: pointer;
+    width: 100px;
+    display: inline-block;
+}
+
+.form-btn {
+    display: inline-block;
+}
+
+.form-container form {
+    max-width: 242px;
+    padding: 0 20px;
+    position: absolute;
+    top: 80px;
+    transition: transform 1s;
+}
+
+form input {
+    width: 100%;
+    height: 30px;
+    margin: 10px 0;
+    padding: 0 10px;
+    border: 1px solid#ccc;
+}
+
+form .btn {
+    width: 108%;
+    border: none;
+    cursor: pointer;
+    margin: 5px 0;
+}
+
+.form .btn:focus {
+    outline: none;
+}
+
+#LoginForm {
+    left: -300px;
+}
+
+#RegForm {
+    left: 0;
+}
+
+form a {
+    font-size: 12px;
+}
+
+#Indicator {
+    width: 100px;
+    border: none;
+    background: #0092be;
+    height: 3px;
+    margin-top: 8px;
+    transform: translateX(62px);
+    transition: transform 1s;
+}
+
+.form-container .btn {
+    display: inline-block;
+    background: #0092be;
+    color: white;
+    padding: 8px 30px;
+    margin: 7px 0;
+    border-radius: 30px;
+    transition: background 0.5s;
+}
+
+.form-container .btn:hover {
+    background: transparent;
+    border: 1px solid #3f4954;
+    color: #3f4954;
+}
+
+.form-container p {
+    color: #ff523b;
+    font-style: italic;
+}
+
+.form-container .btn-extend-account {
+    width: 108%;
+    border: none;
+    cursor: pointer;
+    margin: 5px 0;
+    display: inline-block;
+    padding: 8px 30px;
+    margin: 7px 0;
+    border-radius: 30px;
+    background: transparent;
+    border: 1px solid #3f4954;
+    color: #3f4954;
+}
+
+.form-container .btn-extend-account:hover {
+    border: 1px solid #0092be;
+    color: #0092be;
+}
+
+.form-container .btn-extend-account i {
+    font-size: 1rem;
+    margin: 0 -34px;
+    position: absolute;
+    cursor: pointer;
+}

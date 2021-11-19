@@ -1,0 +1,89 @@
+@import url(../css/fonts.css);
+html,
+body {
+    margin: 0%;
+    box-sizing: border-box;
+    background-color:#ccc;
+    font-size: 100% !important;
+    
+}
+
+:root {
+    --text-gray: #3f4954;
+    /*theme font-family*/
+    --Abel: 'Abel', cursive;
+    --Anton: 'Anton', cursive;
+    --Josefin: 'Josefin', cursive;
+    --Lexend: 'Lexend', cursive;
+    --Livvic: 'Livvic', cursive;
+}
+
+
+.contact-section{
+    width: 900px;
+    margin-left: auto;
+    margin-right: auto;
+    background-color: white;
+    margin-top: 58px;
+    border: none;
+    border-radius: 20px;
+    padding-left: 30px;
+    padding-bottom: 30px;
+    padding-right: 30px;
+    margin-bottom: 58px;
+    height: 50%;
+}
+.contact-section h2{
+    padding-top: 20px;
+}
+
+.row{
+    margin-top: 8px;
+    margin-left: -8px;
+    margin-right: -8px;
+}
+.col{
+    float: left;
+    padding-left: 8px;
+    padding-right: 16px;
+}
+.col-full{
+    width: 100%;
+}
+.col-half{
+    width: 50px;
+}
+.contact-content{
+    margin-top: 48px;
+    margin-bottom: 20px;
+}
+.contact-info{
+    font-size: 18px;
+    line-height: 1.6;
+}
+.contact-info i[class*="fas fa-"] {
+    width: 30px;
+    display: inline-block;
+
+}
+
+.contact-form{
+    font-size: 15px;
+}
+
+.contact-form .form-control{
+    padding: 10px;
+    border: 1px solid #ccc;
+    width: 100%;
+}
+.mt-8{
+    margin-top: 8px;
+}
+
+.mt-16{
+    margin-top: 16px;
+}
+.btn-send{
+    float: right;
+    margin-right: 5px;
+}

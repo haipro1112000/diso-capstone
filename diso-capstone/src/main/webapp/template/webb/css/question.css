@@ -1,0 +1,90 @@
+@import url(../css/fonts.css);
+
+html,
+body {
+    margin: 0%;
+    box-sizing: border-box;
+    background: #f5f5f5
+}
+
+:root {
+    --text-gray: #3f4954;
+    /*theme font-family*/
+    --Abel: 'Abel', cursive;
+    --Anton: 'Anton', cursive;
+    --Josefin: 'Josefin', cursive;
+    --Lexend: 'Lexend', cursive;
+    --Livvic: 'Livvic', cursive;
+}
+.upload-img{
+    margin-top: 30px;
+}
+
+.question-container {
+    width: 900px;
+    margin-left: auto;
+    margin-right: auto;
+    padding-top: 20px;
+    text-align: center;
+    background-color: white;
+    padding-left: 30px;
+    padding-right: 30px;
+    margin-top: 30px;
+    border-radius: 10px;
+}
+.question-container h2{
+    text-align: left;
+}
+
+.question-label {
+    font-family: var(--Lexend);
+    font-size: 30px;
+}
+
+.question-container .title input {
+    color: #292929;
+    width: 50%;
+    font-size: 20px;
+    font-weight: 500;
+    line-height: 44.8px;
+    border: 1px solid #ccc ;
+    border-radius: 10px;
+    padding-left: 20px;
+}
+textarea {
+    width: 55%;
+    height: 250px;
+    padding: 12px 20px;
+    box-sizing: border-box;
+    border: 2px solid #ccc;
+    border-radius: 4px;
+    background-color: #f8f8f8;
+    font-size: 16px;
+    resize: none;
+}
+.upload-img {
+    background-color: white !important;
+}
+.btn-upload{
+    border: 1px solid #3f4954 !important;
+    color: #3f4954 !important;
+}
+.btn-upload:hover{
+    border: 1px solid #0092be !important;
+    color: #0092be !important;
+}
+.question-container .btn {
+    margin-top: 20px;
+    margin-bottom: 30px;
+}
+
+.question-container .btn:hover {
+    border: 1px solid #0092be;
+    color: #0092be;
+}
+.question-content{
+    margin-top: 10px;
+}
+.question-container .btn{
+    border: 1px solid #3f4954 ;
+}

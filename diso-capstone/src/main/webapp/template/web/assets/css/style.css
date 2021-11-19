@@ -1,0 +1,281 @@
+@import url(../css/fonts.css);
+html,
+body {
+    margin: 0%;
+    box-sizing: border-box;
+}
+
+:root {
+    --text-gray: #3f4954;
+    /*theme font-family*/
+    --Abel: 'Abel', cursive;
+    --Anton: 'Anton', cursive;
+    --Josefin: 'Josefin', cursive;
+    --Lexend: 'Lexend', cursive;
+    --Livvic: 'Livvic', cursive;
+}
+/*----------Global Classes-------------*/
+a {
+    text-decoration: none;
+    color: var(--text-gray);
+}
+
+.flex-row {
+    display: flex;
+    flex-direction: row;
+    flex-wrap: wrap;
+}
+
+ul {
+    list-style-type: none;
+}
+
+h1 {
+    font-family: var(--Lexend);
+    font-size: 2.5rem;
+}
+
+h2 {
+    font-family: var(--Lexend);
+}
+
+h3 {
+    font-family: var(--Abel);
+    font-size: 1.3rem;
+}
+
+button.btn {
+    border: none;
+    border-radius: 2rem;
+    padding: 1rem 3rem;
+    font-size: 1rem;
+    font-family: var(--Livvic);
+    cursor: pointer;
+}
+
+.col-2 {
+    flex-basis: 50%;
+    min-width: 300px;
+}
+
+
+/*----x-----Global Classes-----x-------*/
+
+
+/*-----------Navbar-------------*/
+
+.nav {
+    background: white;
+    padding: 0 32px;
+    height: 0rem;
+    min-height: 10vh;
+    overflow: hidden;
+    transition: height 0.5s ease-in-out;
+}
+
+.nav .nav-menu {
+    justify-content: space-between;
+}
+
+.nav .toggle-collapse {
+    position: absolute;
+    top: 0%;
+    width: 90%;
+    cursor: pointer;
+    display: none;
+}
+
+.nav .toggle-collapse .toggle-icons {
+    display: flex;
+    justify-content: flex-end;
+    padding: 1.7rem 0;
+}
+
+.nav .toggle-collapse .toggle-icons i {
+    font-size: 1.4rem;
+    color: var(--text-gray);
+}
+
+.collapse {
+    height: 32rem;
+}
+
+.nav .nav-item {
+    display: flex;
+    margin: 0;
+}
+
+.nav .nav-item .nav-link {
+    padding: 1.6rem 1rem;
+    position: relative;
+    font-size: 1.1rem;
+    font-family:var(--Livvic);
+    font-size: 1.2rem;
+}
+
+.nav .nav-item .nav-link:hover {
+    background-color: #a1c4cf;
+}
+
+.nav .nav-item .nav-link:hover a {
+    color: white;
+}
+
+.nav .nav-brand a {
+    font-size: 1.8rem;
+    padding: 1rem 0;
+    display: block;
+    font-family: var(--Lexend);
+}
+
+.nav .nav-brand a:hover {
+    color: #a1c4cf;
+}
+
+.nav .account-icon {
+	
+   /* padding: 1.4rem 0; */
+    
+    font-size: 2rem;
+    padding: 1rem 0;
+    position: relative;
+    cursor: pointer;
+}
+
+.nav .account-icon i:hover {
+    color: #a1c4cf;
+}
+
+.account-menu {
+    position: absolute;
+    top: 60px;
+    right: 10px;
+    padding: 10px 10px;
+    background: #f9fcff;
+    width: 200px;
+    box-sizing: 0 5px 25px rgba(0, 0, 0, 0.1);
+    border-radius: 15px;
+    transition: 0.5s;
+    box-shadow: 0 -4px 32px rgba(0, 0, 0, .2);
+    display: none;
+}
+.account-menu::before {
+    content: '';
+    position: absolute;
+    top: -5px;
+    right: 28px;
+    width: 20px;
+    height: 20px;
+    background: #f9fcff;
+    transform: rotate(45deg);
+}
+
+.account-menu h3 {
+    width: 100%;
+    text-align: center;
+    font-size: 18px;
+    padding: 10px 0;
+    font-weight: 1000;
+    color: #3f4954;
+}
+
+.account-menu ul {
+    padding-left: 10px;
+}
+
+.account-menu ul li {
+    list-style: none;
+    padding: 10px 0;
+    border-top: 1px solid rgba(0, 0, 0, 0.5);
+    display: flex;
+    align-items: center;
+    cursor: pointer;
+    color: #3f4954;
+    font-family:var(--Livvic);
+    font-weight: 500;
+    transition: 0.5s;
+}
+
+.account-menu ul li img {
+    max-width: 20px;
+    margin-right: 10px;
+    opacity: 0.5;
+}
+
+.account-menu ul li:hover img {
+    opacity: 1;
+}
+
+.account-menu ul li:hover,
+.account-menu ul li:hover a{
+    color: #0092be;
+}
+
+
+/*----x------Navbar-------x-----*/
+
+
+/*-----------Main Content-------------*/
+
+
+/*-----------Site Title-------------*/
+
+/* main .site-title {
+    background: url(../assets/—Pngtree—blue\ fresh\ literary\ flowers_925010.jpg);
+    background-size: 100%;
+    background-repeat: no-repeat;
+    height: 90vh;
+    display: flex;
+    justify-content: center;
+}
+ */
+main .site-title .site-background {
+    padding-top: 10rem;
+    text-align: center;
+    color: #3f4954;
+}
+
+main .site-title h1,
+h3 {
+    margin: .3rem;
+}
+
+main .site-title a {
+    margin: 1.8rem;
+    background: #0092be;
+    color: white;
+    border: none;
+    border-radius: 2rem;
+    padding: 1rem 3rem;
+    font-size: 1rem;
+    font-family: var(--Livvic);
+    cursor: pointer;
+}
+
+main .site-title a:hover {
+    background: transparent;
+    border: 1px solid white;
+    color: #3f4954;
+}
+
+.btn-site{
+    padding-top: 50px;
+}
+
+
+/*-----x-----Site Title------x------*/
+
+
+/*-----x-----Main Content-------x-----*/
+
+/* Media Querry for mobile */
+
+@media only screen and (max-width:750px) {
+    .nav .nav-menu,
+    .nav .nav-item {
+        flex-direction: column;
+    }
+    .nav .toggle-collapse {
+        display: initial;
+    }
+}
