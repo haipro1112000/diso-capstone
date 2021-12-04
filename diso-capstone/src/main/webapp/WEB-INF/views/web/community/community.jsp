@@ -1,6 +1,9 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
 	pageEncoding="UTF-8"%>
 <%@include file="/common/taglib.jsp"%>
+<head>
+<title>Cộng Đồng</title>
+</head>
 <body>
 	<%-- <h1>helo</h1>
 	<h1>${ post.size() }</h1>
@@ -33,23 +36,51 @@
 				<div class="post__header header">
 					<!-- header left -->
 					<div class="header__left">
-						<a href="#"> <img
-							src="https://res.cloudinary.com/nguyenhai/image/upload/v1636880416/default-avatar_bjg40e.jpg"
+						<a href="#"> <img src="${ item.avatar }"
 							class="post__author-pic" />
 						</a>
-						<div class="post__author author">
+						<%-- <div class="post__author author">
 							<span class="author__name"> <a href="#">${ item.firstName }
 									${ item.lastName }</a>
 							</span> <i class="author__verified"></i>
+						</div> --%>
+						<div class="post__author author">
+							<c:if test="${ loginInfo.id == item.userId }">
+								<span class="author__name"> <a
+									href="<c:url value='/profile'/>">${ item.firstName } ${ item.lastName }</a>
+								</span>
+								<i class="author__verified"></i>
+							</c:if>
+							<c:if test="${ loginInfo.id != item.userId }">
+								<span class="author__name"> <a href="#">${ item.firstName }
+										${ item.lastName }</a>
+								</span>
+								<i class="author__verified"></i>
+							</c:if>
 						</div>
-						<span class="post__date"> <i>${item.createAt}</i>
+						<span class="post__date"> <i class="date-now">${item.createAt}</i>
 						</span> <span class="post__date-privacy-separator">&nbsp;·</span> <i
 							class="post__privacy"></i>
 					</div>
 					<!-- Header right -->
-					<div class="header__right">
-						<div class="post__options options">
-							<i class="options__icon"></i>
+					<div class="header__right btn-group dropend">
+						<button type="button" class="btn" data-bs-toggle="dropdown"
+							aria-expanded="false">
+							<div class="post__options options">
+								<i class="bi bi-three-dots options__icon "></i>
+							</div>
+						</button>
+						<div class="dropdown-menu">
+							<c:if test="${ item.userId == loginInfo.id }">
+								<a class="dropdown-item"
+									href="<c:url value='/post?id=${ item.id }'/>">Chỉnh sửa</a>
+								<div class="dropdown-divider"></div>
+								<a class="dropdown-item" onclick="deletePost(${ item.id })">Xóa</a>
+							</c:if>
+							<c:if test="${ item.userId != loginInfo.id }">
+								<button class="dropdown-item" href="#">Báo cáo</button>
+							</c:if>
+
 						</div>
 					</div>
 				</div>

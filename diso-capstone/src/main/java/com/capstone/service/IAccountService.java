@@ -20,5 +20,11 @@ public interface IAccountService {
 	public UserEntity getUserByUserEmail(String email);
 	
 	public int changePasswordById(String newPassword,long id);
+	
+	public int updateAvatarByUserId(String image,long id);
+	
+	public int changePasswordByUserName(String newPassword, String userName);
+	
+	
 
 }

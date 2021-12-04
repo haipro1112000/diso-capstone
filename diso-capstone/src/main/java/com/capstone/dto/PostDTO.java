@@ -6,6 +6,7 @@ public class PostDTO {
 	private String content;
 	private String firstName;
 	private String lastName;
+	private String avatar;
 	private String createAt;
 	private String updateAt;
 	private String userId;
@@ -47,6 +48,12 @@ public class PostDTO {
 	}
 	public void setLastName(String lastName) {
 		this.lastName = lastName;
+	}
+	public String getAvatar() {
+		return avatar;
+	}
+	public void setAvatar(String avatar) {
+		this.avatar = avatar;
 	}
 	public String getCreateAt() {
 		return createAt;

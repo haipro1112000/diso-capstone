@@ -15,6 +15,7 @@ public class PostDTOMapper implements RowMapper<PostDTO>{
 		post.setContent(rs.getString("content"));
 		post.setFirstName(rs.getString("firstname"));
 		post.setLastName(rs.getString("lastname"));
+		post.setAvatar(rs.getString("image"));
 		post.setUserId(rs.getString("userid"));
 		post.setCreateAt(rs.getString("createat"));
 		post.setUpdateAt(rs.getString("updateat"));

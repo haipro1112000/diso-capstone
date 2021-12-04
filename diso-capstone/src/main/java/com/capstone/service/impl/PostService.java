@@ -35,16 +35,16 @@ public class PostService implements IPostService {
 						.get("secure_url").toString());
 			
 			}
-			if(!post.getFile2().isEmpty()) {
-				post.setImage2(cloudinary.uploader().upload(post.getFile2().getBytes(),
-						ObjectUtils.asMap("resource_type","auto"))
-						.get("secure_url").toString());
-			}
-			if(!post.getFile3().isEmpty()) {
-				post.setImage3(cloudinary.uploader().upload(post.getFile3().getBytes(),
-						ObjectUtils.asMap("resource_type","auto"))
-						.get("secure_url").toString());
-			}
+//			if(!post.getFile2().isEmpty()) {
+//				post.setImage2(cloudinary.uploader().upload(post.getFile2().getBytes(),
+//						ObjectUtils.asMap("resource_type","auto"))
+//						.get("secure_url").toString());
+//			}
+//			if(!post.getFile3().isEmpty()) {
+//				post.setImage3(cloudinary.uploader().upload(post.getFile3().getBytes(),
+//						ObjectUtils.asMap("resource_type","auto"))
+//						.get("secure_url").toString());
+//			}
 			post.setUserid(userID);
 			SimpleDateFormat ft = new SimpleDateFormat ("yyyy-MM-dd HH:mm:ss");
 			post.setCreateAt(ft.format(new Date()));

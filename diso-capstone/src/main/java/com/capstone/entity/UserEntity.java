@@ -1,6 +1,6 @@
 package com.capstone.entity;
 
-
+import org.springframework.web.multipart.MultipartFile;
 
 public class UserEntity {
 	private long id;
@@ -10,8 +10,8 @@ public class UserEntity {
 	
 	
 	private String lastName;
-	
-
+	private String avatar;
+	private MultipartFile file;
 	private String userName;
 	
 	private String password;
@@ -49,6 +49,18 @@ public class UserEntity {
 	}
 	public void setUserName(String userName) {
 		this.userName = userName;
+	}
+	public String getAvatar() {
+		return avatar;
+	}
+	public void setAvatar(String avatar) {
+		this.avatar = avatar;
+	}
+	public MultipartFile getFile() {
+		return file;
+	}
+	public void setFile(MultipartFile file) {
+		this.file = file;
 	}
 	public String getPassword() {
 		return password;

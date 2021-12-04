@@ -1,11 +1,13 @@
 package com.capstone.controller;
 
+import java.io.IOException;
 import java.util.concurrent.ThreadLocalRandom;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
 import javax.validation.Valid;
 
+import org.hibernate.validator.internal.util.privilegedactions.NewInstance;
 import org.mindrot.jbcrypt.BCrypt;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -15,17 +17,23 @@ import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.servlet.ModelAndView;
 
 import com.capstone.entity.UserEntity;
 import com.capstone.service.impl.AccountService;
 import com.capstone.utils.Email;
 import com.capstone.utils.EmailUtils;
+import com.cloudinary.Cloudinary;
+import com.cloudinary.utils.ObjectUtils;
 
 @Controller
 public class UserController extends BaseController{
 	@Autowired
 	AccountService accountService;
+	
+	@Autowired
+	Cloudinary cloudinary;
 	
 	@RequestMapping(value = "/register", method = RequestMethod.GET)
 	public ModelAndView RegisterPage() {
@@ -43,13 +51,18 @@ public class UserController extends BaseController{
 		else {
 			UserEntity username = accountService.getUserByUsername(user.getUserName());
 			if(username != null) {
-				model.put("usenameErr", "Tên tài khoản đã tồn tại!");
+				model.put("status", "Tên tài khoản đã tồn tại!");
 				_mv.setViewName("web/register");
 				return _mv;
 			}
 			UserEntity email = accountService.getUserByUserEmail(user.getEmail());
 			if(email != null) {
-				model.put("emailErr", "Email đã tồn tại!");
+				model.put("status", "Email đã tồn tại!");
+				_mv.setViewName("web/register");
+				return _mv;
+			}
+			if(!user.getConfirmPassword().equals(user.getPassword())) {
+				model.put("status", "Xác nhận mật khẩu thất bại!");
 				_mv.setViewName("web/register");
 				return _mv;
 			}
@@ -76,35 +89,82 @@ public class UserController extends BaseController{
 	}
 	//chua fix
 	@RequestMapping(value = "/forgot-password", method = RequestMethod.POST)
-	public ModelAndView FindAccount(@ModelAttribute("user") UserEntity user) {
+	public ModelAndView FindAccount(@ModelAttribute("user") UserEntity user 
+			,ModelMap model
+			,HttpSession session) {
 		UserEntity acc = accountService.getUserByUserNameAndEmail(user.getUserName(), user.getEmail());
 		if(acc == null) {
-			_mv.addObject("error", "Username or email is incorrect");
-			
+			model.put("status", "Tên đăng nhập hoặc Email không ");
+			_mv.setViewName("web/forgot-password");
 		}
 		else {
 			Email email = new Email();
-			int a = ThreadLocalRandom.current().nextInt(1000, 9999);
+			int verify = ThreadLocalRandom.current().nextInt(1000, 9999);
 			email.setFrom("nguyenhaivhien9.1@gmail.com");
 			email.setFromPassword("Haithanchet1");
-			email.setSubject("Forgot Password Function");
+			email.setSubject("Xác nhận Email");
 			email.setTo(user.getEmail());
 			StringBuilder st = new StringBuilder();
-			st.append("Dear ").append(acc.getFirstName()).append(" ").append(acc.getLastName()).append("<br>");
-			st.append("You are used forgot password function . <br>");
-			st.append("Your password is ").append(acc.getPassword()).append("<br>");
-			st.append("<a href='http://localhost:8080/diso-capstone/change-password'><p>here</p></a><br>");
-			st.append("Ma xac nhan cua ban la " + a + "<br>");
-			st.append("Regards<br>");
+			st.append("Chào ").append(acc.getFirstName()).append(" ").append(acc.getLastName()).append("<br>");
+//			st.append("Your password is ").append(acc.getPassword()).append("<br>");
+//			st.append("<a href='http://localhost:8080/diso-capstone/change-password'><p>here</p></a><br>");
+			st.append("Mã xác nhận của bản là:  " + verify + "<br>");
+			st.append("Thân,<br>");
 			st.append("Nguyen Hai");
 			email.setContent(st.toString());
 			EmailUtils.send(email);
-			_mv.addObject("status", "password sent to your email. pls check!!");
-			
+			model.put("status", "password sent to your email. pls check!!");
+			session.setAttribute("verify", verify);
+			session.setAttribute("username", user.getUserName());
+			_mv.setViewName("web/forgot-password");
 		}
-		_mv.setViewName("web/forgot-password");
 		return _mv;
 	}
+	@RequestMapping(value = "/reset-password", method = RequestMethod.GET)
+	public ModelAndView resetPasswordPage(HttpSession session) {
+		if(session.getAttribute("verify") == null) {
+			_mv.setViewName("redirect:/forgot-password");
+			return _mv;
+		}
+		int verifySession = (int) session.getAttribute("verify");
+		System.out.println(verifySession);
+		_mv.addObject("user", new UserEntity());
+		_mv.setViewName("web/reset-password");
+		return _mv;
+	}
+	@RequestMapping(value = "/reset-password", method = RequestMethod.POST)
+	public ModelAndView resetPassword(@ModelAttribute("user") UserEntity user
+									, ModelMap model
+									, HttpSession session
+									, HttpServletRequest request) {
+		int verify =  Integer.parseInt(request.getParameter("verify"));
+		int verifySession = (int) session.getAttribute("verify");
+		String username = (String) session.getAttribute("username");
+		System.out.println(verify);
+		System.out.println(verifySession);
+		if(verify == verifySession) {
+			if(user.getConfirmPassword().equals(user.getNewPassword())) {
+				int result = accountService.changePasswordByUserName(user.getNewPassword(), username);
+				if(result>0) {
+					session.removeAttribute("verify");
+					_mv.setViewName("redirect:/login");
+				}else {
+					model.put("status", "Thất bại");
+					_mv.setViewName("web/reset-password");
+				}
+			}else {
+				model.put("status", "Xác nhận mật khẩu không đúng");
+				_mv.setViewName("web/reset-password");
+			}
+		}else {
+			model.put("status", "Mã xác nhận không đúng");
+			_mv.setViewName("web/reset-password");
+		}
+		
+		return _mv;
+	}
+	
+	
 	@RequestMapping(value = "/change-password", method = RequestMethod.GET)
 	public ModelAndView changePasswordPage() {
 		_mv.setViewName("web/change-password");
@@ -185,8 +245,9 @@ public class UserController extends BaseController{
 		
 	}
 	
-	@RequestMapping(value = "/profile/{id}", method = RequestMethod.GET)
-	public ModelAndView profilePage(HttpSession session,HttpServletRequest request,@PathVariable long id ) {
+	@RequestMapping(value = "/profile", method = RequestMethod.GET)
+	public ModelAndView profilePage(HttpSession session,HttpServletRequest request, ModelMap model) {
+		model.remove("status");
 		String previous = request.getRequestURI().replace("/diso-capstone", "");
 		session.setAttribute("previous", previous);
 		if(session.getAttribute("loginInfo") == null) {
@@ -213,7 +274,7 @@ public class UserController extends BaseController{
 //		_mv.setViewName("web/update-profile");
 //		return _mv;
 //	}
-	@RequestMapping(value = "/edit/status", method = RequestMethod.POST)
+	@RequestMapping(value = "/profile", method = RequestMethod.POST)
 	public ModelAndView edit(@ModelAttribute("user") UserEntity user
 							, ModelMap model
 							, HttpSession session) {
@@ -227,11 +288,34 @@ public class UserController extends BaseController{
 		}
 		else {
 			model.put("status", "Cập Nhập thất bại!");
-			_mv.setViewName("redirect:/profile/" + user.getId());
+//			_mv.setViewName("redirect:/profile/" + user.getId());
+			_mv.setViewName("web/profile");
 		}
 		
 		return _mv;
 	}
+//	@RequestMapping(value = "/profile", method = RequestMethod.PUT)
+//	public ModelAndView updateAvatar(@ModelAttribute("user")  UserEntity user,ModelMap model,HttpSession session) {
+//		int result=0;
+//		if(!user.getFile().isEmpty()) {
+//			try {
+//				user.setAvatar(cloudinary.uploader().upload(user.getFile().getBytes(),
+//						ObjectUtils.emptyMap())
+//						.get("secure_url").toString());
+//				result = accountService.updateAvatarByUserId(user.getAvatar(), user.getId());
+//			} catch (IOException e) {
+//				// TODO Auto-generated catch block
+//				e.printStackTrace();
+//			}
+//		}
+//		if(result>0) {
+//			model.put("status", "Cập nhập thành công");
+//		}else {
+//			model.put("status", "Cập nhập Thất bại");
+//		}
+//		_mv.setViewName("web/profile");
+//		return _mv;
+//	}
 	
 	
 }

@@ -1,6 +1,9 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
 	pageEncoding="UTF-8"%>
 <%@include file="/common/taglib.jsp"%>
+<head>
+<title>Bài Viết Chi Tiết</title>
+</head>
 <body>
 	<%-- <div style="border: 1px solid black">
 		<h1>${ post.id}</h1>
@@ -60,17 +63,31 @@
 						alt="Anh dai dien" class="post__author-pic" />
 					</a>
 					<div class="post__author author">
-						<span class="author__name"> <a href="#">${ post.firstName}${ post.lastName }</a>
+						<span class="author__name"> <a href="#">${ post.firstName} ${ post.lastName }</a>
 						</span> <i class="author__verified"></i>
 					</div>
-					<span class="post__date"> <i>${ post.createAt}</i>
+					<span class="post__date"> <i class="date-now">${ post.createAt}</i>
 					</span> <span class="post__date-privacy-separator">&nbsp;·</span> <i
 						class="post__privacy"></i>
 				</div>
 				<!-- Header right -->
-				<div class="header__right">
-					<div class="post__options options">
-						<i class="fas fa-ellipsis-h"></i>
+				<div class="header__right btn-group dropend">
+					<button type="button" class="btn" data-bs-toggle="dropdown"
+						aria-expanded="false">
+						<div class="post__options options">
+							<i class="bi bi-three-dots options__icon "></i>
+						</div>
+					</button>
+					<div class="dropdown-menu">
+						<c:if test="${ loginInfo.id == post.userId }">
+							<a class="dropdown-item" href="<c:url value='/post?id=${ post.id }'/>">Chỉnh sửa</a>
+						</c:if>
+						<c:if test="${ loginInfo.id != post.userId }">
+							<a class="dropdown-item" href="#">Báo cáo spam</a>
+						</c:if>
+						
+						<!-- <div class="dropdown-divider"></div> -->
+						<%-- <a class="dropdown-item" onclick="deletePost(${ item.id })">Xóa</a> --%>
 					</div>
 				</div>
 			</div>
@@ -80,15 +97,17 @@
 					<h2>${post.title}</h2>
 				</div>
 				<div class="content__paragraph">${ post.content }</div>
-				<img src="${ post.image1 }" class="content__image" />
+				<c:if test="${ item.image1 != null}">
+						<img src="${ item.image1 }" class="content__image" />
+				</c:if>
 			</div>
 			<!-- POST FOOTER -->
 			<div class="post__footer footer">
 
 				<!-- Buttons -->
 				<div class="footer__buttons buttons">
-					<span class="buttons__like like"> <i class="like__icon"></i>Bình
-						luận
+					<span class="buttons__comment comment"> <i
+						class="comment__icon"></i>Bình luận
 					</span>
 
 				</div>
@@ -98,7 +117,7 @@
 					<!-- Comments filter -->
 
 					<!-- Comments box -->
-					<div class="comments__box box">
+					<%-- <div class="comments__box box">
 						<div class="box__profile profile">
 							<img
 								src="https://res.cloudinary.com/nguyenhai/image/upload/v1636880416/default-avatar_bjg40e.jpg"
@@ -113,25 +132,71 @@
 								<!-- <i class="fas fa-paper-plane"></i> -->
 							</div>
 						</form>
-					</div>
+					</div> --%>
+					 <c:if test="${ loginInfo != null }">
+						<div class="comments__box box">
+							<div class="box__profile profile">
+								<img
+									src="https://res.cloudinary.com/nguyenhai/image/upload/v1636880416/default-avatar_bjg40e.jpg"
+									class="profile__pic" />
+							</div>
+							<form class="box__bar bar">
+								<input id="commentId" type="text"
+									placeholder="Viết bình luận..." class="bar__input" />
+								<div class="bar__emojis emojis">
+									<input type="button" class="emojis__attach attach"
+										onclick="addComment(${ post.id }, ${ loginInfo.id })">
+									<!-- <i class="fas fa-paper-plane"></i> -->
+								</div>
+							</form>
+						</div>
+					</c:if>
+					<c:if test="${ loginInfo == null }">
+						<div class="comments__box box">
+							
+							<a href="<c:url value='/login'/>">Đăng Nhập để  bình luận</a>
+						</div>
+					</c:if> 
+
 
 					<div id="commentArea">
 						<c:forEach var="item" items="${ comment }">
-							<div id="comment${ item.id }" class="comments__friend-comment friend-comment">
+							<div id="comment${ item.id }"
+								class="comments__friend-comment friend-comment">
 								<img
 									src="https://res.cloudinary.com/nguyenhai/image/upload/v1636880416/default-avatar_bjg40e.jpg"
 									class="friend-comment__pic" />
-								<div 
-									class="friend-comment__comment comment">
-									<a href="#" class="comment__author">${ item.firstName}${ item.lastName }</a>
+								<div class="friend-comment__comment comment">
+									<a href="#" class="comment__author">${ item.firstName} ${ item.lastName }</a>
 									<span class="comment__content"> ${ item.content } </span>
 								</div>
-								<c:if test="${ loginInfo.id == item.userId }">
-									<input type="button" onclick="deleteComment(${ item.id })"
-										value="Xoa binh luan" />
+								<c:if test="${ loginInfo.id == item.userId || loginInfo.id == post.userId }">
+									<button type="button" class="btn" data-bs-toggle="dropdown"
+										aria-expanded="false">
+										<div class="friend-comment__options options">
+											<i class=" bi bi-three-dots options__icon options__comment"></i>
+										</div>
+									</button>
+									<div class="dropdown-menu">
+										<a class="dropdown-item" onclick="deleteComment(${ item.id })">Xóa
+											Bình Luận </a>
+									</div>
 								</c:if>
+								<c:if test="${ loginInfo.id != item.userId }">
+									<button type="button" class="btn" data-bs-toggle="dropdown"
+										aria-expanded="false">
+										<div class="friend-comment__options options">
+											<i class=" bi bi-three-dots options__icon options__comment"></i>
+										</div>
+									</button>
+									<div class="dropdown-menu">
+										<a class="dropdown-item" onclick="">Báo cáo spam </a>
+									</div>
+								</c:if>
+
 							</div>
-					
+
+
 
 						</c:forEach>
 					</div>

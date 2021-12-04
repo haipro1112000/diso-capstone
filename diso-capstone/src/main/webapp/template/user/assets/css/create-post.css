@@ -1,0 +1,87 @@
+.upload-img{
+    margin-top: 30px;
+}
+
+.question-container {
+    width: 700px;
+    margin-left: auto;
+    margin-right: auto;
+    margin-top: 50px;
+    padding-top: 20px;
+    text-align: center;
+    background-color: white;
+    padding-left: 30px;
+    padding-right: 30px;
+    margin-top: 30px;
+    border-radius: 10px;
+}
+.question-container h2{
+    text-align: left;
+}
+
+.question-label {
+    font-size: 20px;
+}
+
+.question-container .title input {
+    color: #292929;
+    width: 70%;
+    font-size: 15px;
+    font-weight: 300;
+    line-height: 44.8px;
+    border: 1px solid #ccc ;
+    padding-left: 20px;
+}
+textarea {
+    width: 70%;
+    height: 150px;
+    padding: 12px 20px;
+    box-sizing: border-box;
+    border: 1px solid #ccc;
+    font-size: 15px;
+    resize: none;
+}
+.upload-img {
+    background-color: white !important;
+}
+.btn-upload{
+    border: 1px solid #3f4954 !important;
+    color: #3f4954 !important;
+}
+.btn-upload:hover{
+    border: 1px solid #0092be !important;
+    color: #0092be !important;
+}
+.question-container .btn {
+    margin-top: 20px;
+    margin-bottom: 30px;
+}
+
+.question-container .btn:hover {
+    border: 1px solid #0092be;
+    color: #0092be;
+}
+.question-content{
+    margin-top: 10px;
+}
+.question-container .btn{
+    border: 1px solid #3f4954 ;
+}
+.img-pre .container-disease-ide{
+    background-color: white;
+    padding-top: 5px;
+    padding-bottom: 5px;
+    text-align: center;
+    
+}
+.img-pre .wrapper{
+    margin-top: 0px;
+    margin-bottom: 15px ;
+}
+.img-pre {
+    text-align: center;
+}
+.up-post{
+    text-align: center;
+    margin-top: 30px;
+}

@@ -44,8 +44,9 @@
 			<div class="control-group">
 			<label class="control-label" for="inputEmail">Email <sup>*</sup></label> 
 			<div class="controls">
-				<form:input type="emai" id="inputEmail" cssClass="form-control" 
-					path="email" />
+				<form:input type="emai" id="inputEmail" cssClass="form-control" pattern="[a-z0-9._%+-]+@[a-z0-9.-]+\.[a-z]{2,}$"
+					title="Email không hợp lệ. vui lòng nhập lại"
+					path="email" required="required"/>
 				
 			</div>
 		</div>

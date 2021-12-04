@@ -1,7 +1,9 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
 	pageEncoding="UTF-8"%>
 <!DOCTYPE html>
-
+<head>
+<title>Bài Viết</title>
+</head>
 <%@include file="/common/taglib.jsp"%>
 <script src="<c:url value='/libraries/ckeditor/ckeditor.js'/>"></script>
 <script src="<c:url value='/libraries/ckfinder/ckfinder.js'/>"></script>
@@ -29,7 +31,9 @@
 		<input type="submit" value="Them Post" class="btn btn-danger" />
 	</div>
 </form:form> --%>
-<div class="question-container">
+
+
+<%--  <div class="question-container">
 	<c:if test="${not empty status }">
 		<h1>${ status }</h1>
 	</c:if>
@@ -96,7 +100,84 @@
 		</c:if>
 		
 	</form:form>
-</div>
+</div>  --%>
+
+<section id="contact" class="contact">
+	<div class="container container-view-disease" data-aos="fade-up">
+
+		<div class="section-title">
+			<h2>Tạo câu hỏi</h2>
+			<p>Cùng tham gia thảo luận về hoa lan!</p>
+		</div>
+
+		<div class="row justify-content-center">
+
+			<div class="col-lg-8 mt-5 mt-lg-0 ">
+
+				<form:form method="post" action="${ action }" modelAttribute="post"
+					enctype="multipart/form-data">
+					<form:hidden path="id" />
+					<div class="form-group mt-3">
+						<form:input type="text" class="form-control" path="title"
+							placeholder="Tiêu Đề" required="required" />
+					</div>
+					<div class="form-group mt-3">
+						<form:textarea class="form-control" name="message" rows="5"
+							id="content" placeholder="Nội dung" required="required"
+							path="content" />
+					</div>
+					<!-- <label for=""> Đính kèm ảnh: <input type="file" required>
+					</label> -->
+					<div class="form-group mt-3 img-pre">
+						<div class="container-disease-ide">
+							<div class="wrapper">
+								<div class="icon">
+									<i class="up bi bi-cloud-arrow-up"></i> <i
+										class="close bi bi-x-lg"></i>
+								</div>
+								<div id="text">Chưa có ảnh nào được chọn!</div>
+								<div class="img">
+									<%-- <c:if test="${ post.image1 != 'null' }">
+										<img src="${ post.image1 }" alt="" class="active" id="image1">
+									</c:if>
+									<c:if test="${ post.image1 == 'null' }">
+										<img src="" alt="">
+									</c:if> --%>
+
+									<c:if test="${ post.image1 != null }">
+										<c:if test="${ post.image1 == 'null' }">
+											<img src="" alt="">
+										</c:if>
+										<c:if test="${ post.image1 != 'null' }">
+											<img src="${ post.image1 }" alt="" class="active">
+										</c:if>
+									</c:if>
+									 <c:if test="${ post.image1 == null }">
+										<img src="" alt="">
+									</c:if> 
+
+								</div>
+								<form:input type="file" accept="image/*" path="file1" id="file"
+									onchange="loadFile(event)" />
+
+							</div>
+
+						</div>
+						<label for="file" class="upload btn btn-outline-primary">Tải
+							ảnh lên</label>
+					</div>
+
+					<div class="text-center">
+						<button type="submit" >Tải lên</button>
+					</div>
+				</form:form>
+
+			</div>
+
+		</div>
+
+	</div>
+</section>
 <script>
         const upload = document.querySelector("input");
         const uploadbtn = document.querySelector(".upload");
@@ -113,6 +194,7 @@
             close.onclick = (e) => {
                 image.classList.remove("active");
                 close.classList.remove("exit");
+                document.getElementById('file').value = '';
             }
         }
  </script>

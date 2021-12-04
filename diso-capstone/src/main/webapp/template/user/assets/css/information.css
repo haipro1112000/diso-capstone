@@ -1,0 +1,54 @@
+
+html,
+body {
+    margin: 0%;
+    box-sizing: border-box;
+    height: 100%;
+
+    font-size: 100%;
+}
+.container-information{
+    margin-top: 90px;
+}
+
+.ui-w-80 {
+    width: 80px;
+    height: auto;
+}
+label.btn {
+    margin-bottom: 20px;
+}
+
+.btn-outline-primary {
+    border-color: #26B4FF;
+    background: transparent;
+    color: #26B4FF;
+    border-radius: 10px;
+    border: solid 1px;
+    border-radius: 10px;
+    padding: 6px 12px;
+    font-size: 1rem;
+
+    cursor: pointer;
+    margin-bottom: 20px;   
+}
+.text-right.mt-3 {
+    margin-right: 20px;
+}
+
+.text-light {
+    color: #babbbc !important;
+}
+
+
+.row-bordered {
+    overflow: hidden;
+}
+
+.account-settings-fileinput {
+    position: absolute;
+    visibility: hidden;
+    width: 1px;
+    height: 1px;
+    opacity: 0;
+}

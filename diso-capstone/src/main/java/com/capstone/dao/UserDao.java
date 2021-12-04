@@ -9,11 +9,10 @@ import com.capstone.entity.UserMapper;
 public class UserDao extends BaseDAO {
 	public int addAccount(UserEntity user) {
 		StringBuilder sql = new StringBuilder();
-
 		sql.append("insert into user ");
 		sql.append("values( ");
 		sql.append("     null  ");
-		sql.append("    ,null ");
+		sql.append("    ,'https://res.cloudinary.com/nguyenhai/image/upload/v1636880416/default-avatar_bjg40e.jpg' ");
 		sql.append("    ,'" + user.getFirstName() + "' ");
 		sql.append("    ,'" + user.getLastName() + "' ");
 		sql.append("    ,'" + user.getUserName() + "' ");
@@ -77,6 +76,19 @@ public class UserDao extends BaseDAO {
 		}
 		
 	}
+	public int updateUserWithAvatar(UserEntity user) {
+		String sql = "update user set image=?, firstname=?, lastname=?, address=?, phone=?, email=? where id=?";
+		try {
+			return _jdbcTemplate.update(sql,user.getAvatar(),user.getFirstName(), user.getLastName(), user.getAddress(), user.getPhone(), user.getEmail(), user.getId());
+		} catch (Exception e) {
+			e.printStackTrace();
+			return 0;
+		}
+		
+	}
+	
+
+	
 	public int updatePasswordById(String newPassword,long id) {
 		String sql = "update user set password=? where id=?";
 		try {
@@ -96,6 +108,15 @@ public class UserDao extends BaseDAO {
 		}
 		
 	}
+	public int changePasswordByUserName(String newPassword, String userName) {
+		String sql =  "update user set password=? where username=?";
+		try {
+			return _jdbcTemplate.update(sql,newPassword,userName);
+		} catch (Exception e) {
+			e.printStackTrace();
+			return 0;
+		}
+	}
 	public UserEntity getUserByUsername(String username) {
 		String sql = "SELECT * FROM user where username=?";
 		try {
@@ -110,6 +131,15 @@ public class UserDao extends BaseDAO {
 			return _jdbcTemplate.queryForObject(sql, new UserMapper(),email);
 		} catch (Exception e) {
 			return null;
+		}
+	}
+	public int updateAvatarByUserId(String image,long id) {
+		String sql = "update user set image=? where id=?";
+		try {
+			return _jdbcTemplate.update(sql,image,id);
+		} catch (Exception e) {
+			e.printStackTrace();
+			return 0;
 		}
 	}
 }

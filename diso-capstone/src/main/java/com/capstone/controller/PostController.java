@@ -86,11 +86,13 @@ public class PostController extends BaseController {
 		if (result > 0) {
 //			_mv.setViewName("redirect:/" + (String) session.getAttribute("previous"));
 			model.put("status", " thành công!");
+			_mv.setViewName("redirect:/" + (String) session.getAttribute("previous"));
 		}
 		else {
 			model.put("status", "thất bại!");
+			_mv.setViewName("web/community/create-post");
 		}
-		_mv.setViewName("web/community/create-post");
+		
 		return _mv;
 	}
 	
@@ -146,7 +148,8 @@ public class PostController extends BaseController {
 			_mv.setViewName("redirect:/login");
 		} else {
 			UserEntity user = (UserEntity) session.getAttribute("loginInfo");
-			List<PostEntity> list = postService.getDataPostByUserId(user.getId());
+//			List<PostEntity> list = postService.getDataPostByUserId(user.getId());
+			List<PostDTO> list = postService.getPostDTOByUserId(user.getId());
 //			PostEntity entity = list.get(0);
 //			System.out.println(entity);
 			_mv.addObject("mypost", list);

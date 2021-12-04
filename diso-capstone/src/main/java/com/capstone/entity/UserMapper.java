@@ -13,6 +13,7 @@ public class UserMapper implements RowMapper<UserEntity>{
 		user.setId(rs.getLong("id"));
 		user.setFirstName(rs.getString("firstname"));
 		user.setLastName(rs.getString("lastname"));
+		user.setAvatar(rs.getString("image"));
 		user.setPassword(rs.getString("password"));
 		user.setAddress(rs.getString("address"));
 		user.setPhone(rs.getString("phone"));

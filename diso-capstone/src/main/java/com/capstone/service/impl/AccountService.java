@@ -7,11 +7,15 @@ import org.springframework.stereotype.Service;
 import com.capstone.dao.UserDao;
 import com.capstone.entity.UserEntity;
 import com.capstone.service.IAccountService;
+import com.cloudinary.Cloudinary;
+import com.cloudinary.utils.ObjectUtils;
 @Service
 public class AccountService implements IAccountService{
 
 	@Autowired
 	public UserDao userDao;
+	
+	@Autowired Cloudinary cloudinary;
 	
 	@Override
 	public int addAccount(UserEntity user) {
@@ -42,12 +46,24 @@ public class AccountService implements IAccountService{
 	@Override
 	public UserEntity getUserById(long id) {
 		return userDao.getUserById(id);
-		
 	}
 
 	@Override
 	public int updateAccount(UserEntity user) {
-		return userDao.updateUser(user);
+//		return userDao.updateUser(user);
+		try {
+			if(!user.getFile().isEmpty()) {
+				user.setAvatar(cloudinary.uploader().upload(user.getFile().getBytes(),
+						ObjectUtils.emptyMap())
+						.get("secure_url").toString());
+				return userDao.updateUserWithAvatar(user);
+			}else {
+				return userDao.updateUser(user);
+			}
+		} catch (Exception e) {
+			e.printStackTrace();
+			return 0;
+		}
 	}
 
 	@Override
@@ -72,6 +88,21 @@ public class AccountService implements IAccountService{
 		newPassword = BCrypt.hashpw(newPassword, BCrypt.gensalt(12));
 		return userDao.changePasswordById(newPassword, id);
 	}
+
+	@Override
+	public int updateAvatarByUserId(String image, long id) {
+		return userDao.updateAvatarByUserId(image, id);
+	}
+
+	@Override
+	public int changePasswordByUserName(String newPassword, String userName) {
+		newPassword = BCrypt.hashpw(newPassword, BCrypt.gensalt(12));
+		return userDao.changePasswordByUserName(newPassword, userName);
+	}
+
+	
+
+	
 	
 
 }

@@ -1,13 +1,17 @@
 package com.capstone.api;
 
+import java.io.IOException;
 import java.util.Map;
 
 import org.mindrot.jbcrypt.BCrypt;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.MediaType;
+import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.multipart.MultipartFile;
 
 import com.capstone.entity.UserEntity;
 import com.capstone.service.impl.AccountService;
@@ -36,6 +40,14 @@ public class AccountAPI {
 		return accountService.changePasswordById(newPassword,userId);
 	}
 	
+	@PutMapping("api/avatar")
+	public ResponseEntity<?> updateAvatar(@RequestBody Map<String, Object> params) throws IOException{
+		
+		String string = (String) params.get("string");
+		
+		System.out.println(string);
+		return ResponseEntity.ok("working");
+	}
 	
 	
 	
