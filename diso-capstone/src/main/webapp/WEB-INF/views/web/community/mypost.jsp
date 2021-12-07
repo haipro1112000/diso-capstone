@@ -122,7 +122,7 @@
 			</div>
 			<!-- POST FOOTER -->
 			<div class="post__footer footer">
-				<p class="buttons__comment comment">${ item.totalComment }bình
+				<p class="buttons__comment comment">${ item.totalComment } bình
 					luận</p>
 				<!-- Buttons -->
 				<div class="footer__buttons buttons">
@@ -140,21 +140,6 @@
 		moment(date).locale('vi').fromNow();
 	</script>
 <script type="text/javascript">
-		function deletePost(postId){
-			fetch("/diso-capstone/api/post", {
-				method: 'DELETE',
-				body: JSON.stringify({
-					"id": postId
-				}),
-				headers: {
-					"Content-Type": "application/json"
-				}
-			}).then(function(res) {
-				return res.json();
-			}).then(function(data) {
-				console.info(data);
-				location.reload();
-			});
-		}
+		
 		
 	</script>

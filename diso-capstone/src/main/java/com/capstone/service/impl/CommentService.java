@@ -40,6 +40,7 @@ public class CommentService implements ICommentService {
 		comment.setContent(content);
 		comment.setFirstName(user.getFirstName());
 		comment.setLastName(user.getLastName());
+		comment.setAvatar(user.getAvatar());
 		SimpleDateFormat ft = new SimpleDateFormat ("yyyy-MM-dd HH:mm:ss");
 		comment.setCreateAt(ft.format(new Date()));
 		return commentDAO.addComment(comment);

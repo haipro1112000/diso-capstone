@@ -14,6 +14,7 @@ public class PostDTO {
 	private String image2;
 	private String image1;
 	private String totalComment="";
+	private long report;
 	public PostDTO() {
 		
 	}
@@ -96,6 +97,12 @@ public class PostDTO {
 	}
 	public void setTotalComment(String totalComment) {
 		this.totalComment = totalComment;
+	}
+	public long getReport() {
+		return report;
+	}
+	public void setReport(long report) {
+		this.report = report;
 	}
 	
 	

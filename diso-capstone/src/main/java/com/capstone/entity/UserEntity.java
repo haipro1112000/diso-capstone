@@ -13,18 +13,25 @@ public class UserEntity {
 	private String avatar;
 	private MultipartFile file;
 	private String userName;
-	
 	private String password;
 	private String newPassword;
 	private String confirmPassword;
-
 	private String address;
 	private String phone;
-	
 	private String email;
+	private long report;
 	public UserEntity() {
 		
 	}
+	
+	public long getReport() {
+		return report;
+	}
+
+	public void setReport(long report) {
+		this.report = report;
+	}
+
 	public long getId() {
 		return id;
 	}

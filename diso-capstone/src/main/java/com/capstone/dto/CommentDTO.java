@@ -12,6 +12,7 @@ public class CommentDTO {
 	private String createAt;
 	@JsonIgnore
 	private String updateAt;
+	private String avatar;
 	public CommentDTO() {
 		super();
 	}
@@ -63,6 +64,12 @@ public class CommentDTO {
 	}
 	public void setUpdateAt(String updateAt) {
 		this.updateAt = updateAt;
+	}
+	public String getAvatar() {
+		return avatar;
+	}
+	public void setAvatar(String avatar) {
+		this.avatar = avatar;
 	}
 	
 	

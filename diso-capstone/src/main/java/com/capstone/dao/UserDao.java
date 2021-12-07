@@ -1,5 +1,7 @@
 package com.capstone.dao;
 
+import java.util.List;
+
 import org.springframework.stereotype.Repository;
 
 import com.capstone.entity.UserEntity;
@@ -21,6 +23,7 @@ public class UserDao extends BaseDAO {
 		sql.append("    ,'" + user.getPhone() + "' ");
 		sql.append("    ,'" + user.getEmail() + "' ");
 		sql.append("    ,1 ");
+		sql.append("    ,0 ");
 		sql.append(");");
 		try {
 			return _jdbcTemplate.update(sql.toString());
@@ -29,6 +32,15 @@ public class UserDao extends BaseDAO {
 			return 0;
 		}
 		
+	}
+	public List<UserEntity> findAll(){
+		String sql = "SELECT * FROM user";
+		try {
+			return _jdbcTemplate.query(sql, new UserMapper());
+		} catch (Exception e) {
+			e.printStackTrace();
+			return null;
+		}
 	}
 
 	public UserEntity getUserByAcc(UserEntity user) {
@@ -86,7 +98,15 @@ public class UserDao extends BaseDAO {
 		}
 		
 	}
-	
+	public int updateReportById(long report,long id) {
+		String sql = "update user set report=? where id=?";
+		try {
+			return _jdbcTemplate.update(sql,report,id);
+		} catch (Exception e) {
+			e.printStackTrace();
+			return 0;
+		}
+	}
 
 	
 	public int updatePasswordById(String newPassword,long id) {

@@ -100,6 +100,18 @@ public class AccountService implements IAccountService{
 		return userDao.changePasswordByUserName(newPassword, userName);
 	}
 
+	@Override
+	public int increaseReportById(long report, long id) {
+		report+=1;
+		return userDao.updateReportById(report, id);
+	}
+
+	@Override
+	public int decreaseReportById(long report, long id) {
+		report-=1;
+		return userDao.updateReportById(report, id);
+	}
+
 	
 
 	

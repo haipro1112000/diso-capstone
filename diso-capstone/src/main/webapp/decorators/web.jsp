@@ -132,7 +132,7 @@ main .site-title {
 	<%-- <script src="<c:url value='/template/webb/js/Jquery3.6.0.min.js'/>"></script>
 	<!--Custom Javascript file -->
 	<script src="<c:url value='/template/webb/js/mainn.js'/>"></script> --%>
-	 <script src="<c:url value='/template/webb/js/xuli.js'/>"></script> 
+	 <script src="<c:url value='/template/webb/js/xuly.js'/>"></script> 
 
 
 

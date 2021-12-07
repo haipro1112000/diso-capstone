@@ -25,6 +25,8 @@ public interface IAccountService {
 	
 	public int changePasswordByUserName(String newPassword, String userName);
 	
+	public int increaseReportById(long report,long id);
 	
+	public int decreaseReportById(long report,long id);
 
 }

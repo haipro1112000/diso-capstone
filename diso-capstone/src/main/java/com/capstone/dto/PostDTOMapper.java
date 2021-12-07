@@ -24,8 +24,9 @@ public class PostDTOMapper implements RowMapper<PostDTO>{
 		post.setImage3(rs.getString("image3"));	
 		try {
 			post.setTotalComment(rs.getString("totalComment"));
+			post.setReport(rs.getLong("report"));
 		} catch (Exception e) {
-			// TODO: handle exception
+			
 		}
 		
 		return post;

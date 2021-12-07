@@ -15,6 +15,7 @@ public class PostEntity {
 	private MultipartFile file1;
 	private MultipartFile file2;
 	private MultipartFile file3;
+	private long report;
 	
 	public PostEntity() {
 		
@@ -112,6 +113,12 @@ public class PostEntity {
 
 	public void setFile3(MultipartFile file3) {
 		this.file3 = file3;
+	}
+	public long getReport() {
+		return report;
+	}
+	public void setReport(long report) {
+		this.report = report;
 	}
 
 	

@@ -7,6 +7,7 @@ import org.mindrot.jbcrypt.BCrypt;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
+import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestParam;
@@ -49,7 +50,21 @@ public class AccountAPI {
 		return ResponseEntity.ok("working");
 	}
 	
-	
-	
+	@PostMapping(path="api/account/report",produces = {
+			MediaType.APPLICATION_JSON_VALUE + ";charset=UTF-8"
+	})
+	public ResponseEntity<?> increaseReport(@RequestBody Map<String, String> params){
+		long id = Long.parseLong(params.get("id"));
+		long report = Long.parseLong(params.get("report"));
+		return ResponseEntity.ok(accountService.increaseReportById(report, id));
+	}
+	@PutMapping(path="api/account/report",produces = {
+			MediaType.APPLICATION_JSON_VALUE + ";charset=UTF-8"
+	})
+	public ResponseEntity<?> decreaseReport(@RequestBody Map<String, String> params){
+		long id = Long.parseLong(params.get("id"));
+		long report = Long.parseLong(params.get("report"));
+		return ResponseEntity.ok(accountService.decreaseReportById(report, id));
+	}
 	
 }

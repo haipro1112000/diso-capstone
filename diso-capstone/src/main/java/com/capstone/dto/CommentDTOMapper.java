@@ -18,6 +18,7 @@ public class CommentDTOMapper implements RowMapper<CommentDTO>{
 		comment.setLastName(rs.getString("lastname"));
 		comment.setCreateAt(rs.getString("createat"));
 		comment.setUpdateAt(rs.getString("updateat"));
+		comment.setAvatar(rs.getString("image"));
 		return comment;
 	}
 
