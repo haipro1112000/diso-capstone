@@ -152,9 +152,9 @@
 											<img src="${ post.image1 }" alt="" class="active">
 										</c:if>
 									</c:if>
-									 <c:if test="${ post.image1 == null }">
+									<c:if test="${ post.image1 == null }">
 										<img src="" alt="">
-									</c:if> 
+									</c:if>
 
 								</div>
 								<form:input type="file" accept="image/*" path="file1" id="file"
@@ -166,10 +166,11 @@
 						<label for="file" class="upload btn btn-outline-primary">Tải
 							ảnh lên</label>
 					</div>
-
-					<div class="text-center">
-						<button type="submit" >Tải lên</button>
+					<div class="up-post">
+						<button class="btn-outline-primary" type="submit">Đăng
+							bài viết</button>
 					</div>
+
 				</form:form>
 
 			</div>
@@ -200,7 +201,12 @@
  </script>
 
 <script>
-	var editor = CKEDITOR.replace('content');
+	var editor = CKEDITOR.replace('content', {
+	   toolbar: 'Custom', //makes all editors use this toolbar
+	   toolbarStartupExpanded : false,
+	   toolbarCanCollapse  : false,
+	   toolbar_Custom: [] //define an empty array or whatever buttons you want.
+	});
 	CKFinder.setupCKEditor(editor,'libraries/ckfinder/')
 </script>
 

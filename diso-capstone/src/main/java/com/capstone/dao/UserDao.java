@@ -24,6 +24,8 @@ public class UserDao extends BaseDAO {
 		sql.append("    ,'" + user.getEmail() + "' ");
 		sql.append("    ,1 ");
 		sql.append("    ,0 ");
+		sql.append("    ,1 ");
+		sql.append("    ,NULL ");
 		sql.append(");");
 		try {
 			return _jdbcTemplate.update(sql.toString());
@@ -35,6 +37,15 @@ public class UserDao extends BaseDAO {
 	}
 	public List<UserEntity> findAll(){
 		String sql = "SELECT * FROM user";
+		try {
+			return _jdbcTemplate.query(sql, new UserMapper());
+		} catch (Exception e) {
+			e.printStackTrace();
+			return null;
+		}
+	}
+	public List<UserEntity> findUnactiveAll(){
+		String sql = "SELECT * FROM user where active=0";
 		try {
 			return _jdbcTemplate.query(sql, new UserMapper());
 		} catch (Exception e) {
@@ -98,10 +109,10 @@ public class UserDao extends BaseDAO {
 		}
 		
 	}
-	public int updateReportById(long report,long id) {
-		String sql = "update user set report=? where id=?";
+	public int updateReportByUserId(long userId) {
+		String sql = "update user set report=report+1 where id=?";
 		try {
-			return _jdbcTemplate.update(sql,report,id);
+			return _jdbcTemplate.update(sql,userId);
 		} catch (Exception e) {
 			e.printStackTrace();
 			return 0;
@@ -160,6 +171,39 @@ public class UserDao extends BaseDAO {
 		} catch (Exception e) {
 			e.printStackTrace();
 			return 0;
+		}
+	}
+	public int activeById(long id) {
+		String sql = "update user set active=1, unactive_date=NULL where id=?";
+		try {
+			return _jdbcTemplate.update(sql,id);
+		} catch (Exception e) {
+			e.printStackTrace();
+			return 0;
+		}
+	}
+	public int unactiveById(long id, String unactiveDate) {
+		String sql = "update user set active=0, unactive_date=? where id=?";
+		try {
+			return _jdbcTemplate.update(sql,unactiveDate,id);
+		} catch (Exception e) {
+			e.printStackTrace();
+			return 0;
+		}
+	}
+	public List<UserEntity> findUser(String txt){
+		StringBuilder sql =  new StringBuilder();
+		sql.append("select * from user ");
+		sql.append("where firstname LIKE '%"+ txt +"%' ");
+		sql.append("   OR lastname LIKE '%"+ txt +"%' ");
+		sql.append("   OR address LIKE '%"+ txt +"%' ");
+		sql.append("   OR phone LIKE '%"+ txt +"%' ");
+		sql.append("   OR email LIKE '%"+ txt +"%'");
+		try {
+			return _jdbcTemplate.query(sql.toString(), new UserMapper());
+		} catch (Exception e) {
+			e.printStackTrace();
+			return null;
 		}
 	}
 }

@@ -1,23 +1,19 @@
 package com.capstone.controller;
 
-import java.io.IOException;
 import java.util.concurrent.ThreadLocalRandom;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
 import javax.validation.Valid;
 
-import org.hibernate.validator.internal.util.privilegedactions.NewInstance;
 import org.mindrot.jbcrypt.BCrypt;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.ModelMap;
 import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.ModelAttribute;
-import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
-import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.servlet.ModelAndView;
 
 import com.capstone.entity.UserEntity;
@@ -25,7 +21,6 @@ import com.capstone.service.impl.AccountService;
 import com.capstone.utils.Email;
 import com.capstone.utils.EmailUtils;
 import com.cloudinary.Cloudinary;
-import com.cloudinary.utils.ObjectUtils;
 
 @Controller
 public class UserController extends BaseController{
@@ -34,6 +29,8 @@ public class UserController extends BaseController{
 	
 	@Autowired
 	Cloudinary cloudinary;
+	
+	public static int count=0;
 	
 	@RequestMapping(value = "/register", method = RequestMethod.GET)
 	public ModelAndView RegisterPage() {
@@ -94,7 +91,7 @@ public class UserController extends BaseController{
 			,HttpSession session) {
 		UserEntity acc = accountService.getUserByUserNameAndEmail(user.getUserName(), user.getEmail());
 		if(acc == null) {
-			model.put("status", "Tên đăng nhập hoặc Email không ");
+			model.put("status", "Tên đăng nhập hoặc Email không đúng");
 			_mv.setViewName("web/forgot-password");
 		}
 		else {
@@ -113,10 +110,10 @@ public class UserController extends BaseController{
 			st.append("Nguyen Hai");
 			email.setContent(st.toString());
 			EmailUtils.send(email);
-			model.put("status", "password sent to your email. pls check!!");
+			model.put("status", "Vui-lòng-kiểm-tra-email");
 			session.setAttribute("verify", verify);
 			session.setAttribute("username", user.getUserName());
-			_mv.setViewName("web/forgot-password");
+			_mv.setViewName("redirect:/reset-password");
 		}
 		return _mv;
 	}
@@ -150,16 +147,26 @@ public class UserController extends BaseController{
 					_mv.setViewName("redirect:/login");
 				}else {
 					model.put("status", "Thất bại");
+					count++;
 					_mv.setViewName("web/reset-password");
 				}
 			}else {
 				model.put("status", "Xác nhận mật khẩu không đúng");
+				count++;
 				_mv.setViewName("web/reset-password");
 			}
 		}else {
 			model.put("status", "Mã xác nhận không đúng");
+			count++;
 			_mv.setViewName("web/reset-password");
 		}
+		if(count == 3) {
+			session.removeAttribute("verify");
+			_mv.setViewName("web/forgot-password");
+			model.put("status", "bạn đã nhập sai quá số lần cho phép");
+			count=0;
+		}
+			
 		
 		return _mv;
 	}

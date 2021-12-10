@@ -5,6 +5,15 @@
 <title>Bài Viết Chi Tiết</title>
 </head>
 <body>
+	<!-- <div id="mess" style="position: fixed;
+  left: 490px;
+  top: 78px;
+  display:none;
+  color: white;
+  background: black;
+  ">
+	<h1>Cảm ơn đóng góp của bạn</h1>
+</div> -->
 	<%-- <div style="border: 1px solid black">
 		<h1>${ post.id}</h1>
 		<a href="<c:url value='/post/${  post.title }' />"><h2>${post.title}</h2></a>
@@ -98,8 +107,8 @@
 					<h2>${post.title}</h2>
 				</div>
 				<div class="content__paragraph">${ post.content }</div>
-				<c:if test="${ item.image1 != null}">
-					<img src="${ item.image1 }" class="content__image" />
+				<c:if test="${ post.image1 != 'null'}">
+					<img src="${ post.image1 }" class="content__image" />
 				</c:if>
 			</div>
 			<!-- POST FOOTER -->
@@ -158,43 +167,48 @@
 					</c:if>
 
 
-					<div id="commentArea">
+					<div id="commentArea" class="comment-box">
 						<c:forEach var="item" items="${ comment }">
-							<div id="comment${ item.id }"
-								class="comments__friend-comment friend-comment"
-								style="margin-bottom: 5px;">
-								<img src="${ item.avatar }" class="friend-comment__pic" />
-								<div class="friend-comment__comment comment">
-									<a href="#" class="comment__author">${ item.firstName} ${ item.lastName }</a>
-									<span class="comment__content"> ${ item.content } </span>
-								</div>
-								<button type="button" class="btn" data-bs-toggle="dropdown"
-									aria-expanded="false">
-									<div class="friend-comment__options options">
-										<i class=" bi bi-three-dots options__icon options__comment"></i>
+							<div class="user-comment-box" style="display: none;">
+								<div id="comment${ item.id }"
+									class="comments__friend-comment friend-comment"
+									style="margin-bottom: 5px;">
+									<img src="${ item.avatar }" class="friend-comment__pic" />
+									<div class="friend-comment__comment comment">
+										<span>
+											<a href="#" class="comment__author">${ item.firstName} ${ item.lastName }</a>
+											<i class="date-now">${ item.createAt}</i>
+										</span>
+										<span class="comment__content"> ${ item.content } </span>
 									</div>
-								</button>
-								<c:if
-									test="${ loginInfo.id == item.userId || loginInfo.id == post.userId }">
-									<div class="dropdown-menu">
-										<a class="dropdown-item" onclick="deleteComment(${ item.id })">Xóa
-											Bình Luận </a>
-										<c:if test="${ loginInfo.id != item.userId }">
-											<a class="dropdown-item" onclick="">Báo cáo spam </a>
-										</c:if>
-									</div>
-								</c:if>
+									<button type="button" class="btn" data-bs-toggle="dropdown"
+										aria-expanded="false">
+										<div class="friend-comment__options options">
+											<i class=" bi bi-three-dots options__icon options__comment"></i>
+										</div>
+									</button>
+									<c:if
+										test="${ loginInfo.id == item.userId || loginInfo.id == post.userId }">
+										<div class="dropdown-menu">
+											<a class="dropdown-item"
+												onclick="deleteComment(${ item.id })">Xóa Bình Luận </a>
+											<c:if test="${ loginInfo.id != item.userId }">
+												<a class="dropdown-item" onclick="reportAccount(${ item.userId })">Báo cáo spam </a>
+											</c:if>
+										</div>
+									</c:if>
 
-								<c:if test="${ loginInfo.id != item.userId }">
-									<div class="dropdown-menu">
-										<a class="dropdown-item" onclick="">Báo cáo spam </a>
-									</div>
-								</c:if>
-								<%-- <div class="dropdown-menu">
+									<c:if test="${ loginInfo.id != item.userId }">
+										<div class="dropdown-menu">
+											<a class="dropdown-item"
+												onclick="reportAccount(${ item.userId })">Báo cáo spam </a>
+										</div>
+									</c:if>
+									<%-- <div class="dropdown-menu">
 									<a class="dropdown-item" onclick="deleteComment(${ item.id })">Xóa
 										Bình Luận </a>
 								</div> --%>
-								<%-- <c:if test="${ loginInfo.id == item.userId || loginInfo.id == post.userId }">
+									<%-- <c:if test="${ loginInfo.id == item.userId || loginInfo.id == post.userId }">
 									<button type="button" class="btn" data-bs-toggle="dropdown"
 										aria-expanded="false">
 										<div class="friend-comment__options options">
@@ -218,28 +232,50 @@
 									</div>
 								</c:if> --%>
 
+								</div>
 							</div>
 
 
-
 						</c:forEach>
+						<!-- More comments -->
+						<c:if test="${ comment.size() > 5 }">
+							<div class="comments__more-comments more-comments see-more">
+							<span class="more-comments__link"> <a href="#">Xem
+									thêm bình luận</a>
+							</span> <!-- <span class="more-comments__count">1 của 10</span> -->
+						</div>
+						</c:if>
+						
+						
+
 					</div>
 
 
 
-					<div class="comments__more-comments more-comments">
-						<span class="more-comments__link"> <a href="#">View
-								more comments</a>
-						</span>
-					</div>
+
 				</div>
 
 			</div>
 		</div>
 	</div>
-	<%-- <i>${ moment(data.createAt, "YYYY-MM-DD hh:mm:ss").locale('vi').fromNow()}</i> --%>
+	
 	<script type="text/javascript">
-
-</script>
+		$(function(){
+	       // select the first 5 hidden divs
+	    
+			$( ".comment-box" ).each(function( index ) {
+			 	$(this).children(".user-comment-box").slice(0,5).show();
+			});
+			
+	        $(".see-more").click(function(e){ // click event for load more
+	            e.preventDefault();
+	            var done = $('<div class="comments__more-comments=done more-comments=done"><div>');
+	            $(this).siblings(".user-comment-box:hidden").slice(0,5).show(); // select next 5 hidden divs and show them
+	            if($(this).siblings(".user-comment-box:hidden").length == 0){ // check if any hidden divs
+	                $(this).replaceWith(done); // if there are none left
+	            }
+	        });
+		});
+	</script>
 
 </body>

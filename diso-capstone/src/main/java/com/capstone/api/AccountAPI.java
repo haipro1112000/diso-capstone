@@ -1,6 +1,8 @@
 package com.capstone.api;
 
 import java.io.IOException;
+import java.text.SimpleDateFormat;
+import java.util.Date;
 import java.util.Map;
 
 import org.mindrot.jbcrypt.BCrypt;
@@ -19,12 +21,11 @@ import com.capstone.service.impl.AccountService;
 
 @RestController
 public class AccountAPI {
-	
+
 	@Autowired
 	private AccountService accountService;
-	@PutMapping(path="api/account",produces = {
-			MediaType.APPLICATION_JSON_VALUE + ";charset=UTF-8"
-	})
+
+	@PutMapping(path = "api/account", produces = { MediaType.APPLICATION_JSON_VALUE + ";charset=UTF-8" })
 	public int changePassword(@RequestBody Map<String, String> params) {
 		long userId = Long.parseLong(params.get("userId"));
 		String password = params.get("password");
@@ -32,39 +33,39 @@ public class AccountAPI {
 		String confirmPassword = params.get("confirmPassword");
 		UserEntity user = accountService.getUserById(userId);
 //		password = BCrypt.hashpw(newPassword, BCrypt.gensalt(12));
-		if(!BCrypt.checkpw(password, user.getPassword())) {
+		if (!BCrypt.checkpw(password, user.getPassword())) {
 			return 0;
 		}
-		if(!newPassword.equals(confirmPassword)) {
+		if (!newPassword.equals(confirmPassword)) {
 			return 0;
 		}
-		return accountService.changePasswordById(newPassword,userId);
+		return accountService.changePasswordById(newPassword, userId);
 	}
-	
-	@PutMapping("api/avatar")
-	public ResponseEntity<?> updateAvatar(@RequestBody Map<String, Object> params) throws IOException{
-		
-		String string = (String) params.get("string");
-		
-		System.out.println(string);
-		return ResponseEntity.ok("working");
+
+//	@PutMapping("api/avatar")
+//	public ResponseEntity<?> updateAvatar(@RequestBody Map<String, Object> params) throws IOException{
+//		
+//		String string = (String) params.get("string");
+//		
+//		System.out.println(string);
+//		return ResponseEntity.ok("working");
+//	}
+//	
+	@PostMapping(path = "api/account/report", produces = { MediaType.APPLICATION_JSON_VALUE + ";charset=UTF-8" })
+	public ResponseEntity<?> increaseReport(@RequestBody long userId) {
+		return ResponseEntity.ok(accountService.increaseReportByUserId(userId));
 	}
-	
-	@PostMapping(path="api/account/report",produces = {
-			MediaType.APPLICATION_JSON_VALUE + ";charset=UTF-8"
-	})
-	public ResponseEntity<?> increaseReport(@RequestBody Map<String, String> params){
+
+	@PostMapping(path = "api/account/active", produces = { MediaType.APPLICATION_JSON_VALUE + ";charset=UTF-8" })
+	public ResponseEntity<?> activeAccount(@RequestBody Map<String, String> params) {
 		long id = Long.parseLong(params.get("id"));
-		long report = Long.parseLong(params.get("report"));
-		return ResponseEntity.ok(accountService.increaseReportById(report, id));
+		return ResponseEntity.ok(accountService.activeById(id));
 	}
-	@PutMapping(path="api/account/report",produces = {
-			MediaType.APPLICATION_JSON_VALUE + ";charset=UTF-8"
-	})
-	public ResponseEntity<?> decreaseReport(@RequestBody Map<String, String> params){
+	@PutMapping(path = "api/account/active", produces = { MediaType.APPLICATION_JSON_VALUE + ";charset=UTF-8" })
+	public ResponseEntity<?> unactiveAccount(@RequestBody Map<String, String> params) {
 		long id = Long.parseLong(params.get("id"));
-		long report = Long.parseLong(params.get("report"));
-		return ResponseEntity.ok(accountService.decreaseReportById(report, id));
+		SimpleDateFormat ft = new SimpleDateFormat ("yyyy-MM-dd HH:mm:ss");
+		String unactiveDate = ft.format(new Date());
+		return ResponseEntity.ok(accountService.unactiveById(id, unactiveDate));
 	}
-	
 }

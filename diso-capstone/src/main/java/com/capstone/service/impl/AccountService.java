@@ -1,5 +1,9 @@
 package com.capstone.service.impl;
 
+import java.text.SimpleDateFormat;
+import java.util.Date;
+import java.util.List;
+
 import org.mindrot.jbcrypt.BCrypt;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -20,6 +24,8 @@ public class AccountService implements IAccountService{
 	@Override
 	public int addAccount(UserEntity user) {
 		user.setPassword(BCrypt.hashpw(user.getPassword(), BCrypt.gensalt(12)));
+		user.setAddress("");
+		user.setPhone("");
 		return userDao.addAccount(user);
 	}
 
@@ -101,16 +107,35 @@ public class AccountService implements IAccountService{
 	}
 
 	@Override
-	public int increaseReportById(long report, long id) {
-		report+=1;
-		return userDao.updateReportById(report, id);
+	public int increaseReportByUserId(long userId) {
+		
+		return userDao.updateReportByUserId(userId);
 	}
 
 	@Override
-	public int decreaseReportById(long report, long id) {
-		report-=1;
-		return userDao.updateReportById(report, id);
+	public List<UserEntity> findAll() {
+		
+		return userDao.findAll();
 	}
+
+	@Override
+	public int activeById(long id) {
+		return userDao.activeById(id);
+		
+	}
+
+	@Override
+	public int unactiveById(long id, String unactiveDate) {
+//		SimpleDateFormat ft = new SimpleDateFormat ("yyyy-MM-dd HH:mm:ss");
+//		unactiveDate = ft.format(new Date());
+		return userDao.unactiveById(id, unactiveDate);
+	}
+
+	@Override
+	public List<UserEntity> findUser(String txt) {
+		return userDao.findUser(txt);
+	}
+
 
 	
 

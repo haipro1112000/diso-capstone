@@ -95,7 +95,7 @@
 <script
 	src="https://cdnjs.cloudflare.com/ajax/libs/moment.js/2.29.1/moment-with-locales.min.js"
 	type="text/javascript"></script>
-
+<script src="//cdn.jsdelivr.net/npm/sweetalert2@11"></script>
 
 <!-- <style type="text/css">
 main .site-title {
@@ -114,7 +114,10 @@ main .site-title {
 
 	<%@include file="/common/web/header.jsp"%>
 
-
+	<div id="mess"
+		style="position: fixed; left: 490px; top: 78px; display: none; color: white; background: black;">
+		<h1>Cảm ơn đóng góp của bạn</h1>
+	</div>
 
 	<!--------Main Site Section--------->
 	<dec:body />
@@ -132,7 +135,7 @@ main .site-title {
 	<%-- <script src="<c:url value='/template/webb/js/Jquery3.6.0.min.js'/>"></script>
 	<!--Custom Javascript file -->
 	<script src="<c:url value='/template/webb/js/mainn.js'/>"></script> --%>
-	 <script src="<c:url value='/template/webb/js/xuly.js'/>"></script> 
+	<script src="<c:url value='/template/user/assets/js/xuly.js'/>"></script>
 
 
 

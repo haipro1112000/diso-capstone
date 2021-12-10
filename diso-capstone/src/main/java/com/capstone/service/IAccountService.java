@@ -1,5 +1,7 @@
 package com.capstone.service;
 
+import java.util.List;
+
 import com.capstone.entity.UserEntity;
 
 public interface IAccountService {
@@ -25,8 +27,14 @@ public interface IAccountService {
 	
 	public int changePasswordByUserName(String newPassword, String userName);
 	
-	public int increaseReportById(long report,long id);
+	public int increaseReportByUserId(long userId);
 	
-	public int decreaseReportById(long report,long id);
+	public List<UserEntity> findAll();
+	
+	public int activeById(long id);
+	
+	public int unactiveById(long id, String unactiveDate);
+	
+	public List<UserEntity> findUser(String txt);
 
 }

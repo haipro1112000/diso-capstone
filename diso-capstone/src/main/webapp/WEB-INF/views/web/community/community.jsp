@@ -75,10 +75,10 @@
 								<a class="dropdown-item"
 									href="<c:url value='/post?id=${ item.id }'/>">Chỉnh sửa</a>
 								<div class="dropdown-divider"></div>
-								<a class="dropdown-item" onclick="deletePost(${ item.id })">Xóa</a>
+								<a class="dropdown-item" onclick="warningBeforeDelete(${ item.id })">Xóa</a>
 							</c:if>
 							<c:if test="${ item.userId != loginInfo.id }">
-								<button class="dropdown-item" href="#">Báo cáo</button>
+								<a class="dropdown-item" onclick="reportPost(${ item.id })">Báo cáo</a>
 							</c:if>
 
 						</div>

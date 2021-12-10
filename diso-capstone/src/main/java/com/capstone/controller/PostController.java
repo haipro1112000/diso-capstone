@@ -154,7 +154,8 @@ public class PostController extends BaseController {
 //			System.out.println(entity);
 			_mv.addObject("mypost", list);
 			_mv.setViewName("web/community/mypost");
-
+			System.out.println(list);
+			System.out.println(list.isEmpty());
 		}
 		return _mv;
 	}

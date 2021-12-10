@@ -15,13 +15,11 @@ public class PostDAO extends BaseDAO{
 	public int addPost(PostEntity post) {
 		
 		StringBuilder  sql = new StringBuilder();
-		sql.append("insert into post(title,content,userid,image1,image2,image3,createat,updateat,report) ");
+		sql.append("insert into post(title,content,userid,image1,createat,updateat,report) ");
 		sql.append("values('"+ post.getTitle()+"'");
 		sql.append("      ,'"+ post.getContent()+"'");
 		sql.append("      ,"+ post.getUserid());
 		sql.append("      ,'"+ post.getImage1()+"'");
-		sql.append("      ,'"+ post.getImage2()+"'");
-		sql.append("      ,'"+ post.getImage3()+"'");
 		sql.append("      ,'"+ post.getCreateAt()+"'");
 		sql.append("      ,'"+ post.getUpdateAt()+"'");
 		sql.append("      ,0);");
@@ -38,7 +36,7 @@ public class PostDAO extends BaseDAO{
 		List<PostDTO> list = new ArrayList<PostDTO>();
 		StringBuilder  sql = new StringBuilder();
 //		sql.append("select p.id , title, content,p.userid ,u.fullname,createat,updateat, image1,image2,image3 ");
-		sql.append("select p.id , title, p.content,p.userid ,u.firstname, u.lastname,u.image,p.createat,p.updateat, image1,image2,image3,p.report ,COUNT(c.id) as 'totalcomment' ");
+		sql.append("select p.id , title, p.content,p.userid ,u.firstname, u.lastname,u.image,p.createat,p.updateat, image1,p.report ,COUNT(c.id) as 'totalcomment' ");
 		sql.append("from post as p join user as u on p.userid = u.id ");
 		sql.append("	       left join comment as c on p.id = c.postid ");
 		sql.append("group by (p.id) ");
@@ -56,7 +54,7 @@ public class PostDAO extends BaseDAO{
 	public List<PostDTO> getPostDTOByUserId(long userId){
 		List<PostDTO> list = new ArrayList<PostDTO>();
 		StringBuilder  sql = new StringBuilder();
-		sql.append("select p.id , title, p.content,p.userid ,u.firstname, u.lastname,u.image,p.createat,p.updateat, image1,image2,image3,p.report ,COUNT(c.id) as 'totalcomment' ");
+		sql.append("select p.id , title, p.content,p.userid ,u.firstname, u.lastname,u.image,p.createat,p.updateat, image1,p.report ,COUNT(c.id) as 'totalcomment' ");
 		sql.append("from post as p join user as u on p.userid = u.id ");
 		sql.append("	       left join comment as c on p.id = c.postid ");
 		sql.append("where p.userid=? ");
@@ -70,11 +68,28 @@ public class PostDAO extends BaseDAO{
 			return null;
 		}
 	}
+	public List<PostDTO> getPostDTOById(long id){
+		List<PostDTO> list = new ArrayList<PostDTO>();
+		StringBuilder  sql = new StringBuilder();
+		sql.append("select p.id , title, p.content,p.userid ,u.firstname, u.lastname,u.image,p.createat,p.updateat, image1,p.report ,COUNT(c.id) as 'totalcomment' ");
+		sql.append("from post as p join user as u on p.userid = u.id ");
+		sql.append("	       left join comment as c on p.id = c.postid ");
+		sql.append("where p.id=? ");
+		sql.append("group by (p.id) ");
+		sql.append("order by p.id desc");
+		try {
+			list = _jdbcTemplate.query(sql.toString(), new PostDTOMapper(),id);
+			return list;
+		} catch (Exception e) {
+			e.printStackTrace();
+			return null;
+		}
+	}
 
 	public PostDTO getDataPostByTitle(String title) {
 		PostDTO list = new PostDTO();
 		StringBuilder  sql = new StringBuilder();
-		sql.append("select p.id , title, content,p.userid ,u.firstname , u.lastname,image ,createat,updateat, image1,image2,image3,p.report ");
+		sql.append("select p.id , title, content,p.userid ,u.firstname , u.lastname,image ,createat,updateat, image1,p.report ");
 		sql.append("from post as p join user as u on p.userid = u.id ");
 		sql.append("where title = '"+title+"';");
 		try {
@@ -136,4 +151,14 @@ public class PostDAO extends BaseDAO{
 			return 0;
 		}
 	}
+	public int updateReportById(long id) {
+		String sql = "update post set report=report+1 where id=?";
+		try {
+			return _jdbcTemplate.update(sql,id);
+		} catch (Exception e) {
+			e.printStackTrace();
+			return 0;
+		}
+	}
+
 }

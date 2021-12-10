@@ -103,17 +103,38 @@
 										</div>
 										<div class="form-group">
 											<label class="form-label">Số điện thoại</label>
-											<form:input type="tel" cssClass="form-control" maxlength="11"
+											<c:if test="${ loginInfo.phone == 'null'}">
+												<form:input type="tel" cssClass="form-control" maxlength="11"
+												pattern="[0]{1}[1-9]{8,10}"
+												title="Số điện thoại không hợp lệ vui lòng nhập lại(9-11 )"
+												value="" placeholder="Số điện thoại"
+												path="phone" />
+											</c:if>
+											<c:if test="${ loginInfo.phone != 'null'}">
+												<form:input type="tel" cssClass="form-control" maxlength="11"
 												pattern="[0]{1}[1-9]{8,10}"
 												title="Số điện thoại không hợp lệ vui lòng nhập lại(9-11 )"
 												value="${ loginInfo.phone }" placeholder="Số điện thoại"
 												path="phone" />
+											</c:if>
+											
 										</div>
+										
 										<div class="form-group">
 											<label class="form-label">Địa chỉ</label>
-											<form:input type="text" value="${ loginInfo.address }"
+											<c:if test="${ loginInfo.address == 'null' }">
+												<form:input type="text" value=""
 												cssClass="form-control" placeholder="Tỉnh/Thành Phố"
 												path="address" />
+											</c:if>
+											<c:if test="${ loginInfo.address != 'null' }">
+												<form:input type="text" value="${ loginInfo.address }"
+												cssClass="form-control" placeholder="Tỉnh/Thành Phố"
+												path="address" />
+											</c:if>
+											<%-- <form:input type="text" value="${ loginInfo.address }"
+												cssClass="form-control" placeholder="Tỉnh/Thành Phố"
+												path="address" /> --%>
 										</div>
 										<div class="form-group">
 											<label class="form-label">E-mail</label>

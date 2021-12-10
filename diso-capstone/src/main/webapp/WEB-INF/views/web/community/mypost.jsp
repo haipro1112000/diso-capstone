@@ -65,8 +65,17 @@
 		
 	</script>
 </body>  --%>
+<c:if test="${ mypost.isEmpty() }">
+	<div style="height:360px;">
+		<h1 style="padding-top:165px; text-align:center;">Bạn không có bài viết nào!!</h1>
+	</div>
+</c:if>
+
+<a onclick="">click vo day</a>
 <c:forEach var="item" items="${ mypost }">
+	
 	<div class="container-viewpost-detail">
+		<input type="hidden" value="${ item.id }" id="post${ item.id }"/>
 		<div class="post">
 			<!-- POST HEADER -->
 			<div class="post__header header">
@@ -105,7 +114,8 @@
 						<a class="dropdown-item"
 							href="<c:url value='/post?id=${ item.id }'/>">Chỉnh sửa</a>
 						<div class="dropdown-divider"></div>
-						<a class="dropdown-item" onclick="deletePost(${ item.id })">Xóa</a>
+						<%-- <a class="dropdown-item" onclick="deletePost(${ item.id })">Xóa</a> --%>
+						<a class="dropdown-item" onclick="warningBeforeDelete(${ item.id })">Xóa</a>
 					</div>
 				</div>
 			</div>

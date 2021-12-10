@@ -19,6 +19,7 @@ public class UserMapper implements RowMapper<UserEntity>{
 		user.setPhone(rs.getString("phone"));
 		user.setEmail(rs.getString("email"));
 		user.setReport(rs.getLong("report"));
+		user.setUnactiveDate(rs.getString("unactive_date"));
 		return user;
 	}
 

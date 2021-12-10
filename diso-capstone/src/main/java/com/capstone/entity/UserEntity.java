@@ -20,6 +20,7 @@ public class UserEntity {
 	private String phone;
 	private String email;
 	private long report;
+	private String unactiveDate;
 	public UserEntity() {
 		
 	}
@@ -104,6 +105,14 @@ public class UserEntity {
 	}
 	public void setNewPassword(String newPassword) {
 		this.newPassword = newPassword;
+	}
+
+	public String getUnactiveDate() {
+		return unactiveDate;
+	}
+
+	public void setUnactiveDate(String unactiveDate) {
+		this.unactiveDate = unactiveDate;
 	}
 	
 	

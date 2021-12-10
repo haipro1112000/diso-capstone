@@ -20,8 +20,8 @@ public class PostDTOMapper implements RowMapper<PostDTO>{
 		post.setCreateAt(rs.getString("createat"));
 		post.setUpdateAt(rs.getString("updateat"));
 		post.setImage1(rs.getString("image1"));
-		post.setImage2(rs.getString("image2"));
-		post.setImage3(rs.getString("image3"));	
+//		post.setImage2(rs.getString("image2"));
+//		post.setImage3(rs.getString("image3"));	
 		try {
 			post.setTotalComment(rs.getString("totalComment"));
 			post.setReport(rs.getLong("report"));

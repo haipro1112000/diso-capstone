@@ -1,7 +1,22 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
 	pageEncoding="UTF-8"%>
+<%@include file="/common/taglib.jsp"%>
 <body>
+	<ul class="sidebar navbar-nav">
+		<li class="nav-item "><a class="nav-link"
+			href="<c:url value="/admin/home"/>"> <i
+				class="fas fa-fw fa-tachometer-alt"></i> <span>Dashboard</span>
+		</a></li>
 
+		<li class="nav-item active" ><a class="nav-link"
+			href="<c:url value="/admin/home"/>"> <i
+				class="fas fa-fw fa-table"></i> <span>Tài khoản</span>
+		</a></li>
+		<li class="nav-item "><a class="nav-link"
+			href="<c:url value="/admin/post"/>"> <i
+				class="fas fa-fw fa-table"></i> <span>Bài viết</span>
+		</a></li>
+	</ul>
 	<div id="content-wrapper">
 
 		<div class="container-fluid">
@@ -71,6 +86,7 @@
 
 
 			<!-- DataTables Example -->
+			<h1>${ accounts.size() }</h1>
 			<div class="card mb-3">
 				<div class="card-header">
 					<i class="fas fa-table"></i> Data Table Example
@@ -80,7 +96,7 @@
 						<table class="table table-bordered" id="dataTable" width="100%"
 							cellspacing="0">
 							<thead>
-								
+
 								<tr>
 									<th>ID</th>
 									<th>Họ và lót</th>
@@ -89,11 +105,11 @@
 									<th>Điện thoại</th>
 									<th>email</th>
 									<th>Báo cáo</th>
+									<th>Hành động</th>
 								</tr>
-								
+
 							</thead>
 							<tfoot>
-								
 								<tr>
 									<th>ID</th>
 									<th>Họ và lót</th>
@@ -102,10 +118,12 @@
 									<th>Điện thoại</th>
 									<th>email</th>
 									<th>Báo cáo</th>
+									<th>Hành động</th>
 								</tr>
 							</tfoot>
 							<tbody>
-								<tr>
+
+								<!-- <tr>
 									<td>1</td>
 									<td>Nguyễn</td>
 									<td>Hải</td>
@@ -113,118 +131,21 @@
 									<td>0386358531</td>
 									<td>nguyenhaivhien9.1@gmail.com</td>
 									<td>4</td>
-								</tr>
-								
-								<tr>
-									<td>1</td>
-									<td>Nguyễn</td>
-									<td>Hải</td>
-									<td>Thừa Thiên Huế</td>
-									<td>0386358531</td>
-									<td>nguyenhaivhien9.1@gmail.com</td>
-									<td>4</td>
-								</tr>
-								<tr>
-									<td>1</td>
-									<td>Nguyễn</td>
-									<td>Hải</td>
-									<td>Thừa Thiên Huế</td>
-									<td>0386358531</td>
-									<td>nguyenhaivhien9.1@gmail.com</td>
-									<td>4</td>
-								</tr>
-								<tr>
-									<td>1</td>
-									<td>Nguyễn</td>
-									<td>Hải</td>
-									<td>Thừa Thiên Huế</td>
-									<td>0386358531</td>
-									<td>nguyenhaivhien9.1@gmail.com</td>
-									<td>4</td>
-								</tr>
-								<tr>
-									<td>1</td>
-									<td>Nguyễn</td>
-									<td>Hải</td>
-									<td>Thừa Thiên Huế</td>
-									<td>0386358531</td>
-									<td>nguyenhaivhien9.1@gmail.com</td>
-									<td>4</td>
-								</tr>
-								<tr>
-									<td>1</td>
-									<td>Nguyễn</td>
-									<td>Hải</td>
-									<td>Thừa Thiên Huế</td>
-									<td>0386358531</td>
-									<td>nguyenhaivhien9.1@gmail.com</td>
-									<td>4</td>
-								</tr>
-								<tr>
-									<td>1</td>
-									<td>Nguyễn</td>
-									<td>Hải</td>
-									<td>Thừa Thiên Huế</td>
-									<td>0386358531</td>
-									<td>nguyenhaivhien9.1@gmail.com</td>
-									<td>4</td>
-								</tr>
-								<tr>
-									<td>1</td>
-									<td>Nguyễn</td>
-									<td>Hải</td>
-									<td>Thừa Thiên Huế</td>
-									<td>0386358531</td>
-									<td>nguyenhaivhien9.1@gmail.com</td>
-									<td>4</td>
-								</tr>
-								<tr>
-									<td>6</td>
-									<td>Nguyễn</td>
-									<td>Hải</td>
-									<td>Thừa Thiên Huế</td>
-									<td>0386358531</td>
-									<td>nguyenhaivhien9.1@gmail.com</td>
-									<td>4</td>
-								</tr>
-								<tr>
-									<td>1</td>
-									<td>Nguyễn</td>
-									<td>Hải</td>
-									<td>Thừa Thiên Huế</td>
-									<td>0386358531</td>
-									<td>nguyenhaivhien9.1@gmail.com</td>
-									<td>4</td>
-								</tr>
-								<tr>
-									<td>1</td>
-									<td>Nguyễn</td>
-									<td>Hải</td>
-									<td>Thừa Thiên Huế</td>
-									<td>0386358531</td>
-									<td>nguyenhaivhien9.1@gmail.com</td>
-									<td>4</td>
-								</tr>
-								<tr>
-									<td>5</td>
-									<td>Nguyễn</td>
-									<td>Nam</td>
-									<td>Thừa Thiên Huế</td>
-									<td>0386358531</td>
-									<td>nguyenhaivhien9.1@gmail.com</td>
-									<td>4</td>
-								</tr>
-								<tr>
-									<td>2</td>
-									<td>Nguyễn</td>
-									<td>Minh</td>
-									<td>Thừa Thiên Huế</td>
-									<td>0386358531</td>
-									<td>nguyenhaivhien9.1@gmail.com</td>
-									<td>4</td>
-								</tr>
-								
-								
+								</tr> -->
+								<c:forEach var="item" items="${ accounts }">
+									<tr>
+										<td>${ item.id }</td>
+										<td>${ item.firstName }</td>
+										<td>${ item.lastName }</td>
+										<td>${ item.address }</td>
+										<td>${ item.phone }</td>
+										<td>${ item.email }</td>
+										<td>${ item.report }</td>
+										<td style="text-align: center;"><a href="#">Khóa</a></td>
+									</tr>
+								</c:forEach>
+
+
 							</tbody>
 						</table>
 					</div>

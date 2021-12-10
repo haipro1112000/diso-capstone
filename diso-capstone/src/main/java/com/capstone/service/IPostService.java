@@ -14,5 +14,6 @@ public interface IPostService {
 	public PostEntity getPostById(long id);
 	public int updatePost(PostEntity post);
 	public List<PostDTO> getPostDTOByUserId(long userId);
-	
+	public int updateReportById(long id);
+	public List<PostDTO> getPostDTOById(long id);
 }

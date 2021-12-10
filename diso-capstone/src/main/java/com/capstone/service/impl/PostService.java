@@ -118,6 +118,17 @@ public class PostService implements IPostService {
 		return postDAO.getPostDTOByUserId(userId);
 	}
 
+	@Override
+	public int updateReportById(long id) {
+		return postDAO.updateReportById(id);
+	}
+
+	@Override
+	public List<PostDTO> getPostDTOById(long id) {
+		
+		return postDAO.getPostDTOById(id);
+	}
+
 	
 
 }

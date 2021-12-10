@@ -15,8 +15,8 @@ public class PostMapper implements RowMapper<PostEntity>{
 		post.setContent(rs.getString("content"));
 		post.setUserid(rs.getLong("userid"));
 		post.setImage1(rs.getString("image1"));
-		post.setImage2(rs.getString("image2"));
-		post.setImage3(rs.getString("image3"));
+//		post.setImage2(rs.getString("image2"));
+//		post.setImage3(rs.getString("image3"));
 		post.setCreateAt(rs.getString("createat"));
 		post.setUpdateAt(rs.getString("updateat"));
 		post.setReport(rs.getLong("report"));

@@ -43,7 +43,7 @@
 	<div id="wrapper">
 
 		<!-- Sidebar -->
-		<%@include file="/common/admin/menu.jsp"%>
+		<%-- <%@include file="/common/admin/menu.jsp"%> --%>
 		<!-- Sidebar close tag -->
 		
 		
