@@ -2,9 +2,11 @@
 	<decorator name="web" page="web.jsp">
 		<pattern>/*</pattern>
 	</decorator>
-	<decorator name="admin" page="admin.jsp">
+	<decorator name="admin" page="admin/admin.jsp">
 		<pattern>/admin/*</pattern>
 	</decorator>
-	
+	<decorator name="loginAdmin" page="admin/login.jsp">
+		<pattern>/loginAdmin*</pattern>
+	</decorator>
 </decorators>
 

@@ -38,12 +38,20 @@ public class AccountService implements IAccountService{
 			if(BCrypt.checkpw(pass, user.getPassword()))
 			return user;
 		}
-	
-		
-		
 		return null;
 	}
 
+	@Override
+	public UserEntity checkAdmin(String userName, String password) {
+		String pass = password;
+		UserEntity user = userDao.getAdminByUsername(userName);
+		if(user != null) {
+			if(BCrypt.checkpw(pass, user.getPassword()))
+			return user;
+		}
+		return null;
+	}
+	
 	@Override
 	public UserEntity getUserByUserNameAndEmail(String username, String email) {
 		return userDao.getUserByUserNameAndEmail(username, email);
@@ -105,6 +113,12 @@ public class AccountService implements IAccountService{
 		newPassword = BCrypt.hashpw(newPassword, BCrypt.gensalt(12));
 		return userDao.changePasswordByUserName(newPassword, userName);
 	}
+	
+	@Override
+	public int changePasswordByEmail(String newPassword, String email) {
+		newPassword = BCrypt.hashpw(newPassword, BCrypt.gensalt(12));
+		return userDao.changePasswordByEmail(newPassword, email);
+	}
 
 	@Override
 	public int increaseReportByUserId(long userId) {
@@ -116,6 +130,12 @@ public class AccountService implements IAccountService{
 	public List<UserEntity> findAll() {
 		
 		return userDao.findAll();
+	}
+	
+	@Override
+	public List<UserEntity> findUnactiveAll() {
+		
+		return userDao.findUnactiveAll();
 	}
 
 	@Override
@@ -135,6 +155,10 @@ public class AccountService implements IAccountService{
 	public List<UserEntity> findUser(String txt) {
 		return userDao.findUser(txt);
 	}
+	
+	
+	
+	
 
 
 	

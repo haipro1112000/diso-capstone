@@ -1,42 +1,6 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
 	pageEncoding="UTF-8"%>
-
-<!-- <footer class="bg-dark text-center text-white">
-	Grid container
-	<div class="container p-4 pb-0">
-		Section: Social media
-		<section class="mb-4">
-			Facebook
-			<a class="btn btn-outline-light btn-floating m-1" href="#!"
-				role="button"><i class="fab fa-facebook-f"></i></a>
-
-			Twitter
-			<a class="btn btn-outline-light btn-floating m-1" href="#!"
-				role="button"><i class="fab fa-twitter"></i></a>
-
-			Google
-			<a class="btn btn-outline-light btn-floating m-1" href="#!"
-				role="button"><i class="fab fa-google"></i></a>
-
-			Instagram
-			<a class="btn btn-outline-light btn-floating m-1" href="#!"
-				role="button"><i class="fab fa-instagram"></i></a>
-			Github
-			<a class="btn btn-outline-light btn-floating m-1" href="#!"
-				role="button"><i class="fab fa-github"></i></a>
-		</section>
-		Section: Social media
-	</div>
-	Grid container
-
-	Copyright
-	<div class="text-center p-3"
-		style="background-color: rgba(0, 0, 0, 0.2);">
-		© 2021 Copyright: <a class="text-white"
-			href="https://mdbootstrap.com/">C1SE.04-DISO</a>
-	</div>
-	Copyright
-</footer> -->
+<%@include file="/common/taglib.jsp"%>
 <footer id="footer">
 
     <div class="footer-top">
@@ -56,21 +20,21 @@
           <div class="col-lg-2 col-md-6 footer-links">
             <h4>Liên kết nhanh</h4>
             <ul>
-              <li><i class="bx bx-chevron-right"></i> <a href="#">Trang chủ</a></li>
-              <li><i class="bx bx-chevron-right"></i> <a href="#">Giới thiệu</a></li>
-              <li><i class="bx bx-chevron-right"></i> <a href="#">Phân tích bệnh</a></li>
-              <li><i class="bx bx-chevron-right"></i> <a href="#">Hỏi đáp</a></li>
-              <li><i class="bx bx-chevron-right"></i> <a href="#">Liên hệ</a></li>
+              <li><i class="bx bx-chevron-right"></i> <a href="<c:url value='/home'/>#hero">Trang chủ</a></li>
+              <li><i class="bx bx-chevron-right"></i> <a href="<c:url value='/home'/>#about">Giới thiệu</a></li>
+              <li><i class="bx bx-chevron-right"></i> <a href="<c:url value='/identify'/>">Phân tích bệnh</a></li>
+              <li><i class="bx bx-chevron-right"></i> <a href="<c:url value='/community'/>">Cộng đồng</a></li>
+              <li><i class="bx bx-chevron-right"></i> <a href="<c:url value='/home'/>#contact">Liên hệ</a></li>
             </ul>
           </div>
 
           <div class="col-lg-3 col-md-6 footer-links">
             <h4>Thành viên</h4>
             <ul>
-              <li><i class="bx bx-chevron-right"></i> <a href="#">Bùi Hữu Nghĩa</a></li>
-              <li><i class="bx bx-chevron-right"></i> <a href="#">Trương Đăng Minh</a></li>
-              <li><i class="bx bx-chevron-right"></i> <a href="#">Đặng Ngọc Nam</a></li>
-              <li><i class="bx bx-chevron-right"></i> <a href="#">Nguyễn Hải</a></li>
+              <li><i class="bx bx-chevron-right"></i> <a href="https://www.facebook.com/nghiabuithi2803">Bùi Hữu Nghĩa</a></li>
+              <li><i class="bx bx-chevron-right"></i> <a href="https://www.facebook.com/profile.php?id=100008623479500">Trương Đăng Minh</a></li>
+              <li><i class="bx bx-chevron-right"></i> <a href="https://www.facebook.com/profile.php?id=100022090997403">Đặng Ngọc Nam</a></li>
+              <li><i class="bx bx-chevron-right"></i> <a href="https://www.facebook.com/nam.ngoc.94695">Nguyễn Hải</a></li>
             </ul>
           </div>
 

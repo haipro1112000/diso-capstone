@@ -1,9 +1,10 @@
 package com.capstone.api;
 
-import java.io.IOException;
 import java.text.SimpleDateFormat;
 import java.util.Date;
 import java.util.Map;
+
+import javax.servlet.http.HttpSession;
 
 import org.mindrot.jbcrypt.BCrypt;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -12,12 +13,12 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
-import org.springframework.web.multipart.MultipartFile;
 
 import com.capstone.entity.UserEntity;
 import com.capstone.service.impl.AccountService;
+import com.capstone.utils.Email;
+import com.capstone.utils.EmailUtils;
 
 @RestController
 public class AccountAPI {
@@ -57,15 +58,40 @@ public class AccountAPI {
 	}
 
 	@PostMapping(path = "api/account/active", produces = { MediaType.APPLICATION_JSON_VALUE + ";charset=UTF-8" })
-	public ResponseEntity<?> activeAccount(@RequestBody Map<String, String> params) {
-		long id = Long.parseLong(params.get("id"));
+	public ResponseEntity<?> activeAccount(@RequestBody long id) {
 		return ResponseEntity.ok(accountService.activeById(id));
 	}
 	@PutMapping(path = "api/account/active", produces = { MediaType.APPLICATION_JSON_VALUE + ";charset=UTF-8" })
-	public ResponseEntity<?> unactiveAccount(@RequestBody Map<String, String> params) {
-		long id = Long.parseLong(params.get("id"));
+	public ResponseEntity<?> unactiveAccount(@RequestBody long id) {
+		
 		SimpleDateFormat ft = new SimpleDateFormat ("yyyy-MM-dd HH:mm:ss");
 		String unactiveDate = ft.format(new Date());
 		return ResponseEntity.ok(accountService.unactiveById(id, unactiveDate));
 	}
+	
+	@PostMapping(path = "api/account/feedback", produces = { MediaType.APPLICATION_JSON_VALUE + ";charset=UTF-8" })
+	public ResponseEntity<?> feedback(@RequestBody Map<String, String> params) {
+		String name = params.get("name");
+		String mail = params.get("email");
+		String subject = params.get("subject");
+		String content = params.get("content");
+		Email email = new Email();
+		email.setFrom("dangngocnam631@gmail.com");
+		email.setFromPassword("Dangngocnam@123654");
+		email.setSubject("FeedBack: " + subject);
+		email.setTo("dangngocnam631@gmail.com");
+		StringBuilder st = new StringBuilder();
+		st.append("Người dùng :").append(name).append("(")
+								 .append(mail).append(") gửi phản hồi với nội dung: <br>");
+		st.append(content).append("<br>");
+		st.append("Thân,<br>");
+		st.append("DISO ");
+		email.setContent(st.toString());
+		EmailUtils.send(email);
+		return ResponseEntity.ok(1);
+		
+	}
+	
+	
+	
 }

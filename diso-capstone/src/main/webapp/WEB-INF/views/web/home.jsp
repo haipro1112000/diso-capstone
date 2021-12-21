@@ -4,21 +4,6 @@
 <head>
 <title>Trang Chủ</title>
 </head>
-<!-- <main>
-	---Site Title-----
-	<section class="site-title">
-		<div class="site-background">
-			<h3>Is Your Orchid Sick ?</h3>
-			<h1>Let's Find Out What Disease It Is !</h1>
-			<div class="btn-site">
-				<a href="">Explore</a>
-			</div>
-
-		</div>
-
-	</section>
-	x--Site Title---x-
-</main> -->
 <main id="main">
 	<!-- ======= Hero Section ======= -->
 	<section id="hero" class="d-flex align-items-center">
@@ -31,7 +16,7 @@
 				</div>
 			</div>
 			<div class="text-center">
-				<a href="disease-identification.html"
+				<a href="<c:url value='/identify'/>"
 					class="btn-get-started scrollto">Tìm hiểu bệnh</a>
 			</div>
 		</div>
@@ -135,7 +120,6 @@
 					<div class="member">
 						<div class="member-img">
 							<img
-							
 								src="<c:url value='/template/user/assets/img/—Pngtree—blue fresh literary flowers_925010.jpg'/>"
 								class="img-fluid" alt="">
 							<div class="social">
@@ -156,7 +140,7 @@
 					data-aos="fade-up" data-aos-delay="400">
 					<div class="member">
 						<div class="member-img">
-							
+
 							<img
 								src="<c:url value='/template/user/assets/img/—Pngtree—blue fresh literary flowers_925010.jpg'/>"
 								class="img-fluid" alt="">
@@ -222,14 +206,13 @@
 				</div>
 
 				<div class="col-lg-8 mt-5 mt-lg-0">
-
-					<form action="forms/contact.php" method="post" role="form"
+					<form action="/diso-capstone/api/account/feedback" method="post" role="form"
 						class="php-email-form">
 						<div class="row">
-							<div class="col-md-6 form-group">
+							 <div class="col-md-6 form-group">
 								<input type="text" name="name" class="form-control" id="name"
 									placeholder="Họ Tên" required>
-							</div>
+							</div> 
 							<div class="col-md-6 form-group">
 								<input type="email" class="form-control" name="email" id="email"
 									placeholder="Email" required>
@@ -240,7 +223,7 @@
 								id="subject" placeholder="Tiêu Đề" required>
 						</div>
 						<div class="form-group mt-3">
-							<textarea class="form-control" name="message" rows="5"
+							<textarea class="form-control" name="message" rows="5" id="content" 
 								placeholder="Nội dung" required></textarea>
 						</div>
 						<div class="my-3">
@@ -253,7 +236,6 @@
 							<button type="submit">Gửi lời nhắn</button>
 						</div>
 					</form>
-
 				</div>
 
 			</div>

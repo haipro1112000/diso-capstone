@@ -5,8 +5,7 @@
 <title>Bài Viết</title>
 </head>
 <%@include file="/common/taglib.jsp"%>
-<script src="<c:url value='/libraries/ckeditor/ckeditor.js'/>"></script>
-<script src="<c:url value='/libraries/ckfinder/ckfinder.js'/>"></script>
+
 <%-- <h1>${ list.size() }</h1> --%>
 <c:url value="/post" var="action" />
 <%-- <h1>Hello</h1>
@@ -106,7 +105,13 @@
 	<div class="container container-view-disease" data-aos="fade-up">
 
 		<div class="section-title">
-			<h2>Tạo câu hỏi</h2>
+			<c:if test="${ post.id != 0 }">
+				<h2>Cập nhập bài viết</h2>
+			</c:if>
+			<c:if test="${ post.id == 0 }">
+				<h2>Tạo bài viết</h2>
+			</c:if>
+
 			<p>Cùng tham gia thảo luận về hoa lan!</p>
 		</div>
 
@@ -167,8 +172,14 @@
 							ảnh lên</label>
 					</div>
 					<div class="up-post">
-						<button class="btn-outline-primary" type="submit">Đăng
+						<c:if test="${ post.id != 0 }">
+							<button class="btn-outline-primary" type="submit">Cập nhập bài viết</button>
+						</c:if>
+						<c:if test="${ post.id == 0 }">
+							<button class="btn-outline-primary" type="submit">Đăng
 							bài viết</button>
+						</c:if>
+						
 					</div>
 
 				</form:form>
@@ -200,13 +211,4 @@
         }
  </script>
 
-<script>
-	var editor = CKEDITOR.replace('content', {
-	   toolbar: 'Custom', //makes all editors use this toolbar
-	   toolbarStartupExpanded : false,
-	   toolbarCanCollapse  : false,
-	   toolbar_Custom: [] //define an empty array or whatever buttons you want.
-	});
-	CKFinder.setupCKEditor(editor,'libraries/ckfinder/')
-</script>
 

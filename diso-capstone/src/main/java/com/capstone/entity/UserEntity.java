@@ -20,6 +20,7 @@ public class UserEntity {
 	private String phone;
 	private String email;
 	private long report;
+	private int active;
 	private String unactiveDate;
 	public UserEntity() {
 		
@@ -113,6 +114,14 @@ public class UserEntity {
 
 	public void setUnactiveDate(String unactiveDate) {
 		this.unactiveDate = unactiveDate;
+	}
+
+	public int getActive() {
+		return active;
+	}
+
+	public void setActive(int active) {
+		this.active = active;
 	}
 	
 	

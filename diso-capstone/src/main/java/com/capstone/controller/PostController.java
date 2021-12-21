@@ -86,7 +86,7 @@ public class PostController extends BaseController {
 		if (result > 0) {
 //			_mv.setViewName("redirect:/" + (String) session.getAttribute("previous"));
 			model.put("status", " thành công!");
-			_mv.setViewName("redirect:/" + (String) session.getAttribute("previous"));
+			_mv.setViewName("redirect:" + (String) session.getAttribute("previous"));
 		}
 		else {
 			model.put("status", "thất bại!");
@@ -128,16 +128,15 @@ public class PostController extends BaseController {
 	*/
 
 	
-	@GetMapping("/community/{title}")
-	public ModelAndView postDetailPage(HttpSession session, HttpServletRequest request, @PathVariable String title) {
+	@GetMapping("/community/{id}")
+	public ModelAndView postDetailPage(HttpSession session, HttpServletRequest request, @PathVariable long id) {
 		String previous = request.getRequestURI().replace("/diso-capstone", "");
 		session.setAttribute("previous", previous);
-		PostDTO post = postService.getDataPostByTitle(title);
+		PostDTO post = postService.findOneById(id);
 		_mv.addObject("post", post);
 		_mv.addObject("comment", commentService.getDataCommentByPostId(post.getId()));
 		_mv.setViewName("web/community/post-detail");
 		return _mv;
-
 	}
 
 	@RequestMapping(value = "/my-post", method = RequestMethod.GET)
@@ -169,26 +168,15 @@ public class PostController extends BaseController {
 		_mv.setViewName("web/community/community");
 		return _mv;
 	}
-
-//	@GetMapping("/post")
-//	public String list(Model model) {
-//		model.addAttribute("post", new PostEntity());
-//		return "web/create-post";
-//	}
-//	@PostMapping("/post")
-//	public String add(@ModelAttribute(value="post") PostEntity post) {
-//		try {
-//			Map map = cloudinary.uploader().upload(post.getFile1().getBytes(),
-//					ObjectUtils.asMap("resource_type","auto"));
-//			String string = map.get("secure_url").toString();
-//			System.out.println(string);
-//			return "redirect:/";
-//		} catch (IOException e) {
-//			// TODO Auto-generated catch block
-//			System.err.println("== ADD POST ==" + e.getMessage());
-//		}
-//		return "web/create-post";
-//		 
-//	}
+	
+	@GetMapping("/community/user/{id}")
+	public ModelAndView yourPostPage(HttpSession session, HttpServletRequest request, @PathVariable long id) {
+		String previous = request.getRequestURI().replace("/diso-capstone", "");
+		session.setAttribute("previous", previous);
+		List<PostDTO> post = postService.getPostDTOByUserId(id);
+		_mv.addObject("post", post);
+		_mv.setViewName("web/community/yourpost");
+		return _mv;
+	}
 
 }

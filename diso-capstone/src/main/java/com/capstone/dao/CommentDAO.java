@@ -13,7 +13,7 @@ public class CommentDAO extends BaseDAO{
 	public List<CommentDTO> getDataCommentByPostId(long postid) {
 		StringBuilder  sql = new StringBuilder();
 		sql.append("SELECT c.id, content, postid, c.userid, c.createat, c.updateat, firstname, lastname,u.image ");
-		sql.append("FROM diso_capstone.comment as c join user as u on c.userid = u.id ");
+		sql.append("FROM comment as c join user as u on c.userid = u.id ");
 		sql.append("where postid=" + postid + " " );
 		sql.append("ORDER BY c.createat DESC");
 		List<CommentDTO> list = new ArrayList<CommentDTO>();

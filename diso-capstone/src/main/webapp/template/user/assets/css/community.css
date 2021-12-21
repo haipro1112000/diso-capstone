@@ -154,6 +154,7 @@ body {
     font-size: 1rem;
     padding: 0.8rem 0.8rem 0.8rem 0.8rem;
     text-align: justify;
+    word-break: break-all;
 }
 
 .content__image {
@@ -300,6 +301,7 @@ body {
 .comments__friend-comment {
   display: flex;
   text-align: start;
+  word-break: break-all;
 }
 
 .friend-comment__pic {

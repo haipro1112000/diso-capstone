@@ -100,6 +100,20 @@ public class PostDAO extends BaseDAO{
 			return null;
 		}
 	}
+	public PostDTO findOneById(long id) {
+		PostDTO list = new PostDTO();
+		StringBuilder  sql = new StringBuilder();
+		sql.append("select p.id , title, content,p.userid ,u.firstname , u.lastname,image ,createat,updateat, image1,p.report ");
+		sql.append("from post as p join user as u on p.userid = u.id ");
+		sql.append("where p.id = "+id+";");
+		try {
+			list = _jdbcTemplate.queryForObject(sql.toString(), new PostDTOMapper());
+			return list;
+		} catch (Exception e) {
+			e.printStackTrace();
+			return null;
+		}
+	}
 	
 	public List<PostEntity> getDataPostByUserId(long userId) {
 		List<PostEntity> list = new ArrayList<PostEntity>();

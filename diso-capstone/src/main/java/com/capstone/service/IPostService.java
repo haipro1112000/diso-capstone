@@ -16,4 +16,5 @@ public interface IPostService {
 	public List<PostDTO> getPostDTOByUserId(long userId);
 	public int updateReportById(long id);
 	public List<PostDTO> getPostDTOById(long id);
+	public PostDTO findOneById(long id);
 }

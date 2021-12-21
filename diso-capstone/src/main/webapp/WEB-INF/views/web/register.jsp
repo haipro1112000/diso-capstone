@@ -76,35 +76,38 @@
 					<div class="form-group">
 						<label for="name"><i class="bi bi-person-fill"></i></label>
 						<form:input type="text" path="firstName" id="name"
-							placeholder="Họ và tên đệm" />
+							placeholder="Họ và tên đệm" required="required" />
 					</div>
 					<div class="form-group">
 						<label for="name"><i class="bi bi-person-fill"></i></label>
 						<form:input type="text" path="lastName" id="name"
-							placeholder="Tên" />
+							placeholder="Tên" required="required" />
 					</div>
 					<div class="form-group">
 						<label for="name"><i class="bi bi-person-fill"></i></label>
-						<form:input type="text" path="userName" id="name" pattern="^[a-zA-Z0-9]+([._]?[a-zA-Z0-9]+)*$"
-							title="Tên Đăng Nhập không hợp lệ"
-							placeholder="Tên tài khoản" />
+						<form:input type="text" path="userName" id="name"
+							pattern="^[a-zA-Z0-9]+([._]?[a-zA-Z0-9]+)*$"
+							title="Tên Đăng Nhập không hợp lệ" placeholder="Tên tài khoản"
+							required="required" />
 					</div>
 					<div class="form-group">
 						<label for="pass"><i class="bi bi-lock-fill"></i></label>
-						<form:input type="password" path="password" id="pass" pattern="(?=.*\d)(?=.*[a-z])(?=.*[A-Z]).{8,}"
-				 title="Mật khẩu phải ít nhất 8 ký tự gồm chữ HOA, chữ thường và số" 
-							placeholder="Mật khẩu" />
+						<form:input type="password" path="password" id="pass"
+							pattern="(?=.*\d)(?=.*[a-z])(?=.*[A-Z]).{8,}"
+							title="Mật khẩu phải ít nhất 8 ký tự gồm chữ HOA, chữ thường và số"
+							placeholder="Mật khẩu" required="required" />
 					</div>
 					<div class="form-group">
 						<label for="re-pass"><i class="bi bi-lock"></i></label>
 						<form:input type="password" path="confirmPassword" id="re_pass"
-							placeholder="Nhắc lại mật khẩu" />
+							placeholder="Nhắc lại mật khẩu" required="required" />
 					</div>
 					<div class="form-group">
 						<label for="email"><i class="bi bi-envelope-fill"></i></label>
-						<form:input type="email" path="email" id="email" pattern="[a-z0-9._%+-]+@[a-z0-9.-]+\.[a-z]{2,}$"
-							title="Email không hợp lệ. vui lòng nhập lại"
-							placeholder="Email" />
+						<form:input type="email" path="email" id="email"
+							pattern="[a-z0-9._%+-]+@[a-z0-9.-]+\.[a-z]{2,}$"
+							title="Email không hợp lệ. vui lòng nhập lại" placeholder="Email"
+							required="required" />
 					</div>
 					<div class="form-group form-button">
 						<input type="submit" name="signup" id="signup" class="form-submit"
@@ -112,7 +115,8 @@
 					</div>
 				</form:form>
 				<c:if test="${ not empty status }">
-					<h1>${ status }</h1>
+					<div class="alert alert-danger" style="padding: 0.4rem 0.6rem">
+						${ status }</div>
 				</c:if>
 			</div>
 			<div class="signup-image">
@@ -121,9 +125,9 @@
 						src="<c:url value="/template/user/assets/img/signup-image.jpg"/>"
 						alt="sing up image">
 				</figure>
-				
-				<a href="<c:url value="/login"/>" class="signup-image-link">Đã có tài khoản
-					! </a>
+
+				<a href="<c:url value="/login"/>" class="signup-image-link">Đã
+					có tài khoản ! </a>
 			</div>
 		</div>
 	</div>

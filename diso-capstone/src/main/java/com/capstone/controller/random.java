@@ -96,14 +96,7 @@ public class random {
 		}
 		System.out.println("\n" + binarySearch(0, a.length-1, 6, a));
 		*/
-		Set<Integer> integers = new HashSet<Integer>();
-		integers.add(1);
-		integers.add(2);
-		integers.add(2);
-		integers.add(1);
-		for (Integer integer : integers) {
-			System.out.println(integer);
-		}
+		
 	}
 
 }

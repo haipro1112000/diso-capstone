@@ -16,10 +16,10 @@
 
 		<h4 class="font-weight-bold py-3 mb-4">TÀI KHOẢN</h4>
 
-		<c:if test="${not empty status}">
+		<%-- <c:if test="${not empty status}">
 			<h1>${status}</h1>
 		</c:if>
-		<h1 id="status" style="display: none"></h1>
+		<h1 id="status" style="display: none"></h1> --%>
 
 		<div class="card overflow-hidden">
 			<div class="row no-gutters row-bordered row-border-light">
@@ -104,33 +104,31 @@
 										<div class="form-group">
 											<label class="form-label">Số điện thoại</label>
 											<c:if test="${ loginInfo.phone == 'null'}">
-												<form:input type="tel" cssClass="form-control" maxlength="11"
-												pattern="[0]{1}[1-9]{8,10}"
-												title="Số điện thoại không hợp lệ vui lòng nhập lại(9-11 )"
-												value="" placeholder="Số điện thoại"
-												path="phone" />
+												<form:input type="tel" cssClass="form-control"
+													maxlength="11" pattern="[0]{1}[1-9]{8,10}"
+													title="Số điện thoại không hợp lệ vui lòng nhập lại(9-11 )"
+													value="" placeholder="Số điện thoại" path="phone" />
 											</c:if>
 											<c:if test="${ loginInfo.phone != 'null'}">
-												<form:input type="tel" cssClass="form-control" maxlength="11"
-												pattern="[0]{1}[1-9]{8,10}"
-												title="Số điện thoại không hợp lệ vui lòng nhập lại(9-11 )"
-												value="${ loginInfo.phone }" placeholder="Số điện thoại"
-												path="phone" />
+												<form:input type="tel" cssClass="form-control"
+													maxlength="11" pattern="[0]{1}[1-9]{8,10}"
+													title="Số điện thoại không hợp lệ vui lòng nhập lại(9-11 )"
+													value="${ loginInfo.phone }" placeholder="Số điện thoại"
+													path="phone" />
 											</c:if>
-											
+
 										</div>
-										
+
 										<div class="form-group">
 											<label class="form-label">Địa chỉ</label>
 											<c:if test="${ loginInfo.address == 'null' }">
-												<form:input type="text" value=""
-												cssClass="form-control" placeholder="Tỉnh/Thành Phố"
-												path="address" />
+												<form:input type="text" value="" cssClass="form-control"
+													placeholder="Tỉnh/Thành Phố" path="address" />
 											</c:if>
 											<c:if test="${ loginInfo.address != 'null' }">
 												<form:input type="text" value="${ loginInfo.address }"
-												cssClass="form-control" placeholder="Tỉnh/Thành Phố"
-												path="address" />
+													cssClass="form-control" placeholder="Tỉnh/Thành Phố"
+													path="address" />
 											</c:if>
 											<%-- <form:input type="text" value="${ loginInfo.address }"
 												cssClass="form-control" placeholder="Tỉnh/Thành Phố"
@@ -143,6 +141,12 @@
 												path="email" />
 
 										</div>
+										<c:if test="${not empty status}">
+											<div class="alert alert-success"
+												style="padding: 0.4rem 0.6rem;" >
+												<span >${ status }</span>
+											</div>
+										</c:if>
 										<div class="text-right mt-3">
 											<input type="submit" class="btn-outline-primary"
 												value="Lưu Thay Đổi" /> &nbsp;
@@ -159,38 +163,47 @@
 								<c:url var="changePassword" value='/change-password' />
 								<form>
 									<div class="form-group">
-										<label class="form-label">Mật khẩu hiện tại</label>
-										<input type="password" class="form-control"
-											name="password" value="" id="password" />
+										<label class="form-label">Mật khẩu hiện tại</label> <input
+											type="password" class="form-control" name="password" value=""
+											id="password" />
 									</div>
 
 									<div class="form-group">
-										<label class="form-label">Mật khẩu mới</label>
-										<input id="newPassword" type="password"	class="form-control" name="newPassword"
-											
-											 />
+										<label class="form-label">Mật khẩu mới</label> <input
+											id="newPassword" type="password" class="form-control"
+											name="newPassword" />
 									</div>
 
 									<div class="form-group">
-										<label class="form-label">Nhập lại mật khẩu mới</label>
-										<input id="confirmPassword" type="password"
-											class="form-control" name="confirmPassword" />
+										<label class="form-label">Nhập lại mật khẩu mới</label> <input
+											id="confirmPassword" type="password" class="form-control"
+											name="confirmPassword" />
 									</div>
 
 
-									<div class="alert alert-danger" style="padding: 0.4rem 0.6rem; display:none" id="mess">
+									<!-- <div class="alert alert-danger" style="padding: 0.4rem 0.6rem; display:none" id="mess">
 										<span id="message"></span>
+									</div> -->
+									<div class="alert alert-danger"
+										style="padding: 0.4rem 0.6rem; display: none" id="mes">
+										<span id="message"></span>
+									</div>
+									<div class="alert alert-success"
+										style="padding: 0.4rem 0.6rem; display: none" id="success">
+										<span id="status"></span>
 									</div>
 
 									<div class="text-right mt-3">
 										<%-- <button type="button" id="change"
 											onclick="changePw(${ loginInfo.id })"
 											class="btn-outline-primary">Lưu thay đổi</button> --%>
-										<input type=""
+										<%-- <input type="" onclick="changePassword(${ loginInfo.id })"
+											value="Lưu thay đổi" class="btn-outline-primary"> --%>
+											<input type="button"
 											onclick="changePassword(${ loginInfo.id })"
 											value="Lưu thay đổi" class="btn-outline-primary">
 										&nbsp;
-										
+
 
 									</div>
 								</form>

@@ -129,6 +129,12 @@ public class PostService implements IPostService {
 		return postDAO.getPostDTOById(id);
 	}
 
+	@Override
+	public PostDTO findOneById(long id) {
+		// TODO Auto-generated method stub
+		return postDAO.findOneById(id);
+	}
+
 	
 
 }

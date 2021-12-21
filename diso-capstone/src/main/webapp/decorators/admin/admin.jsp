@@ -28,11 +28,14 @@
 <link
 	href="<c:url value='/template/admin/vendor/datatables/dataTables.bootstrap4.css'/>"
 	rel="stylesheet">
+	<link
+	href='<c:url value='/template/user/assets/vendor/bootstrap/css/bootstrap.min.css'/>'
+	rel="stylesheet">
 <!-- Custom styles for this template-->
 <!-- <link href="css/sb-admin.css" rel="stylesheet"> -->
 <link href="<c:url value='/template/admin/css/sb-admin.css'/>"
 	rel="stylesheet">
-
+<script src="//cdn.jsdelivr.net/npm/sweetalert2@11"></script>
 </head>
 
 <body id="page-top">
@@ -72,24 +75,23 @@
 		<div class="modal-dialog" role="document">
 			<div class="modal-content">
 				<div class="modal-header">
-					<h5 class="modal-title" id="exampleModalLabel">Ready to Leave?</h5>
+					<h5 class="modal-title" id="exampleModalLabel">Đăng xuất ?</h5>
 					<button class="close" type="button" data-dismiss="modal"
 						aria-label="Close">
 						<span aria-hidden="true">×</span>
 					</button>
 				</div>
-				<div class="modal-body">Select "Logout" below if you are ready
-					to end your current session.</div>
+				<div class="modal-body">Bạn có chắc muốn thoát phiên đăng nhập của mình</div>
 				<div class="modal-footer">
 					<button class="btn btn-secondary" type="button"
 						data-dismiss="modal">Cancel</button>
-					<a class="btn btn-primary" href="login.html">Logout</a>
+					<a class="btn btn-primary" href="<c:url value='/adminLogout'/>">Đăng xuất</a>
 				</div>
 			</div>
 		</div>
 	</div>
 
-
+	<script src="<c:url value='/template/user/assets/js/events.js'/>"></script>
 
 	<!-- Bootstrap core JavaScript-->
 	<script

@@ -5,14 +5,14 @@
 <head>
 <meta charset="UTF-8">
 
-<title>Not funoud</title>
+<title>Not Found</title>
 </head>
 <body>
 
 	
 	
 	
-	<h1>Loi 500</h1>
+	<h1>Not found</h1>
 	
 	
 </body>

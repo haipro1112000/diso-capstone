@@ -9,6 +9,8 @@ public interface IAccountService {
 	
 	public UserEntity checkAccount(UserEntity user);
 	
+	public UserEntity checkAdmin(String userName, String password);
+	
 	public UserEntity getUserByUserNameAndEmail(String username, String email);
 	
 	public UserEntity getUserById(long id); 
@@ -27,9 +29,13 @@ public interface IAccountService {
 	
 	public int changePasswordByUserName(String newPassword, String userName);
 	
+	public int changePasswordByEmail(String newPw, String email);
+	
 	public int increaseReportByUserId(long userId);
 	
 	public List<UserEntity> findAll();
+	
+	public List<UserEntity> findUnactiveAll();
 	
 	public int activeById(long id);
 	

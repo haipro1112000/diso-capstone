@@ -33,7 +33,8 @@ public class UserController extends BaseController{
 	public static int count=0;
 	
 	@RequestMapping(value = "/register", method = RequestMethod.GET)
-	public ModelAndView RegisterPage() {
+	public ModelAndView RegisterPage(ModelMap model) {
+		model.remove("status");
 		_mv.setViewName("web/register");
 		_mv.addObject("user", new UserEntity());
 		return _mv;
@@ -48,18 +49,18 @@ public class UserController extends BaseController{
 		else {
 			UserEntity username = accountService.getUserByUsername(user.getUserName());
 			if(username != null) {
-				model.put("status", "Tên tài khoản đã tồn tại!");
+				model.put("status", "Tên tài khoản đã tồn tại");
 				_mv.setViewName("web/register");
 				return _mv;
 			}
 			UserEntity email = accountService.getUserByUserEmail(user.getEmail());
 			if(email != null) {
-				model.put("status", "Email đã tồn tại!");
+				model.put("status", "Email đã tồn tại");
 				_mv.setViewName("web/register");
 				return _mv;
 			}
 			if(!user.getConfirmPassword().equals(user.getPassword())) {
-				model.put("status", "Xác nhận mật khẩu thất bại!");
+				model.put("status", "Xác nhận mật khẩu thất bại");
 				_mv.setViewName("web/register");
 				return _mv;
 			}
@@ -68,7 +69,7 @@ public class UserController extends BaseController{
 				_mv.setViewName("redirect:/login");
 			}
 			else {
-				model.put("status", "Đăng ký thất bại! ");
+				model.put("status", "Đăng ký thất bại. Vui lòng thử lại");
 				_mv.setViewName("web/register");
 			}
 			
@@ -79,7 +80,8 @@ public class UserController extends BaseController{
 	
 	
 	@RequestMapping(value = "/forgot-password", method = RequestMethod.GET)
-	public ModelAndView forgotPasswordPage() {
+	public ModelAndView forgotPasswordPage(ModelMap model) {
+		model.remove("status");
 		_mv.setViewName("web/forgot-password");
 		_mv.addObject("user", new UserEntity());
 		return _mv;
@@ -91,26 +93,26 @@ public class UserController extends BaseController{
 			,HttpSession session) {
 		UserEntity acc = accountService.getUserByUserNameAndEmail(user.getUserName(), user.getEmail());
 		if(acc == null) {
-			model.put("status", "Tên đăng nhập hoặc Email không đúng");
+			model.put("status", "Tài khoản và email không hợp lệ");
 			_mv.setViewName("web/forgot-password");
 		}
 		else {
 			Email email = new Email();
 			int verify = ThreadLocalRandom.current().nextInt(1000, 9999);
-			email.setFrom("nguyenhaivhien9.1@gmail.com");
-			email.setFromPassword("Haithanchet1");
-			email.setSubject("Xác nhận Email");
+			email.setFrom("dangngocnam631@gmail.com");
+			email.setFromPassword("Dangngocnam@123654");
+			email.setSubject("Xác nhận email");
 			email.setTo(user.getEmail());
 			StringBuilder st = new StringBuilder();
-			st.append("Chào ").append(acc.getFirstName()).append(" ").append(acc.getLastName()).append("<br>");
+			st.append("Chào!").append(acc.getFirstName()).append(" ").append(acc.getLastName()).append("<br>");
 //			st.append("Your password is ").append(acc.getPassword()).append("<br>");
 //			st.append("<a href='http://localhost:8080/diso-capstone/change-password'><p>here</p></a><br>");
-			st.append("Mã xác nhận của bản là:  " + verify + "<br>");
+			st.append("Mã xác nhận của bạn là:  " + verify + "<br>");
 			st.append("Thân,<br>");
-			st.append("Nguyen Hai");
+			st.append("DISO team");
 			email.setContent(st.toString());
 			EmailUtils.send(email);
-			model.put("status", "Vui-lòng-kiểm-tra-email");
+			model.put("status", "Vui lòng kiểm tra email");
 			session.setAttribute("verify", verify);
 			session.setAttribute("username", user.getUserName());
 			_mv.setViewName("redirect:/reset-password");
@@ -118,11 +120,12 @@ public class UserController extends BaseController{
 		return _mv;
 	}
 	@RequestMapping(value = "/reset-password", method = RequestMethod.GET)
-	public ModelAndView resetPasswordPage(HttpSession session) {
+	public ModelAndView resetPasswordPage(HttpSession session, ModelMap model) {
 		if(session.getAttribute("verify") == null) {
 			_mv.setViewName("redirect:/forgot-password");
 			return _mv;
 		}
+		model.remove("status");
 		int verifySession = (int) session.getAttribute("verify");
 		System.out.println(verifySession);
 		_mv.addObject("user", new UserEntity());
@@ -163,7 +166,7 @@ public class UserController extends BaseController{
 		if(count == 3) {
 			session.removeAttribute("verify");
 			_mv.setViewName("web/forgot-password");
-			model.put("status", "bạn đã nhập sai quá số lần cho phép");
+			model.put("status", "Bạn nhập sai quá lần cho phép");
 			count=0;
 		}
 			
@@ -179,41 +182,42 @@ public class UserController extends BaseController{
 		return _mv;
 	}
 	
-	@RequestMapping(value = "/change-password", method = RequestMethod.POST)
-	public ModelAndView changePassword( @ModelAttribute("user") UserEntity user, ModelMap model, HttpSession session) {
-		if(session.getAttribute("login") == null) {
-			_mv.setViewName("redirect:/login");
-			return _mv;
-		}
-		UserEntity u = (UserEntity) session.getAttribute("loginInfo");
-		if(BCrypt.checkpw(user.getPassword(), u.getPassword()) == false) {
-			model.put("status", "Mật Khẩu cũ không đúng");
-			_mv.setViewName("web/profile");
-			return _mv;
-		}
-		else {
-//			String n = user.getNewPassword();
-//			String c = user.getConfirmPassword();
-			if(user.getNewPassword()==user.getConfirmPassword() == false) {
-				model.put("status", "Mật khẩu xác nhận không trùng mật khẩu  ");
-				_mv.setViewName("web/profile");
-				return _mv;
-			}else {
-				user.setNewPassword(BCrypt.hashpw(user.getNewPassword(), BCrypt.gensalt(12)));
-				int result = accountService.updatePasswordById(user.getNewPassword(), u.getId());
-				if(result>0)
-					_mv.setViewName("web/profile");
-				else {
-					model.put("status", "Có lỗi sảy ra, vui lòng quay lại sau");
-					_mv.setViewName("web/profile");
-				}
-			}
-		}
-		return _mv;
-	}
+//	@RequestMapping(value = "/change-password", method = RequestMethod.POST)
+//	public ModelAndView changePassword( @ModelAttribute("user") UserEntity user, ModelMap model, HttpSession session) {
+//		if(session.getAttribute("login") == null) {
+//			_mv.setViewName("redirect:/login");
+//			return _mv;
+//		}
+//		UserEntity u = (UserEntity) session.getAttribute("loginInfo");
+//		if(BCrypt.checkpw(user.getPassword(), u.getPassword()) == false) {
+//			model.put("status", "Máº­t Kháº©u cÅ© khÃ´ng Ä‘Ãºng");
+//			_mv.setViewName("web/profile");
+//			return _mv;
+//		}
+//		else {
+////			String n = user.getNewPassword();
+////			String c = user.getConfirmPassword();
+//			if(user.getNewPassword()==user.getConfirmPassword() == false) {
+//				model.put("status", "Máº­t kháº©u xÃ¡c nháº­n khÃ´ng trÃ¹ng máº­t kháº©u  ");
+//				_mv.setViewName("web/profile");
+//				return _mv;
+//			}else {
+//				user.setNewPassword(BCrypt.hashpw(user.getNewPassword(), BCrypt.gensalt(12)));
+//				int result = accountService.updatePasswordById(user.getNewPassword(), u.getId());
+//				if(result>0)
+//					_mv.setViewName("web/profile");
+//				else {
+//					model.put("status", "CÃ³ lá»—i sáº£y ra, vui lÃ²ng quay láº¡i sau");
+//					_mv.setViewName("web/profile");
+//				}
+//			}
+//		}
+//		return _mv;
+//	}
 	
 	@RequestMapping(value = "/login", method = RequestMethod.GET)
-	public ModelAndView loginPage() {
+	public ModelAndView loginPage(ModelMap model) {
+		model.remove("status");
 		_mv.setViewName("web/login");
 		_mv.addObject("user", new UserEntity());
 		
@@ -230,6 +234,11 @@ public class UserController extends BaseController{
 		else {
 			user = accountService.checkAccount(user);
 			if(user != null) {
+				if(user.getActive() != 1) {
+					model.put("status", "Tài khoản đã bị khoá");
+					_mv.setViewName("web/login");
+					return _mv;
+				}
 				user.setPassword("");
 				_mv.setViewName("redirect:" +(String) session.getAttribute("previous"));
 				
@@ -289,12 +298,12 @@ public class UserController extends BaseController{
 		if(result > 0) {
 			user.setPassword("");
 			session.setAttribute("loginInfo", accountService.getUserById(user.getId()));
-			model.put("status", "Cập nhập thành công");
+			model.put("status", "Cập nhật thành công!");
 		//	_mv.setViewName("redirect:/profile/" + user.getId());
 			_mv.setViewName("web/profile");
 		}
 		else {
-			model.put("status", "Cập Nhập thất bại!");
+			model.put("status", "Cập nhật thất bại!");
 //			_mv.setViewName("redirect:/profile/" + user.getId());
 			_mv.setViewName("web/profile");
 		}
@@ -316,9 +325,9 @@ public class UserController extends BaseController{
 //			}
 //		}
 //		if(result>0) {
-//			model.put("status", "Cập nhập thành công");
+//			model.put("status", "Cáº­p nháº­p thÃ nh cÃ´ng");
 //		}else {
-//			model.put("status", "Cập nhập Thất bại");
+//			model.put("status", "Cáº­p nháº­p Tháº¥t báº¡i");
 //		}
 //		_mv.setViewName("web/profile");
 //		return _mv;
